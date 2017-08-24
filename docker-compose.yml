@@ -8,11 +8,52 @@ services:
             - source
         ports:
             - '9000:9000'
+        links:
+            - mysql
+            - memcached
+        networks:
+            - bitrix
+        restart: always
+    nginx:
+        build: ./nginx
+        container_name: nginx
+        volumes_from:
+            - source
+        ports:
+            - '80:80'
+            - '443:443'
+        links:
+            - php
+        networks:
+            - bitrix
+        restart: always
+    mysql:
+        build: ./mysql
+        container_name: mysql
+        volumes_from:
+            - source
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_DATABASE: bitrix
+            MYSQL_USER: bitrix
+            MYSQL_PASSWORD: 123
+            MYSQL_ROOT_PASSWORD: 123
+        networks:
+            - bitrix
+        restart: always
+    memcached:
+        image: memcached:1.5-alpine
+        container_name: memcached
+        volumes_from:
+            - source
+        ports:
+            - '11211:11211'
         networks:
             - bitrix
         restart: always
     source:
-        build: ./source
+        image: alpine:latest
         container_name: source
         volumes:
             - ./logs/nginx:/var/log/nginx
@@ -25,9 +66,9 @@ services:
         networks:
             - bitrix
 networks:
-  bitrix:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.100.0.0/24
+    bitrix:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 10.100.0.0/24
