@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+    php:
+        build: ./php
+        container_name: php
+        volumes_from:
+            - source
+        ports:
+            - '9000:9000'
+        networks:
+            - bitrix
+        restart: always
+    source:
+        build: ./source
+        container_name: source
+        volumes:
+            - ./logs/nginx:/var/log/nginx
+            - ./logs/php:/var/log/php
+            - ./logs/mysql:/var/log/mysql
+            - ./logs/memcached:/var/log/memcached
+            - ./data/mysql:/var/lib/mysql
+            - ./data/memcached:/var/lib/memcached
+            - /var/www/bitrix:/var/www/bitrix
+        networks:
+            - bitrix
+networks:
+  bitrix:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.0.0/24
