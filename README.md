@@ -49,6 +49,6 @@ cd /var/www/bitrixdock && dc up -d
 Приятной работы!  
 
 ## Примечание
-- Если вы хотите начать с чистой установки Битрикса, скачайте файл [bitrixsetup.php](http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php) в папку с сайтом. По умолчанию стоит папки ```/var/www/bitrix/```
+- Если вы хотите начать с чистой установки Битрикса, скачайте файл [bitrixsetup.php](http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php) в папку с сайтом. По умолчанию стоит папка ```/var/www/bitrix/```
 - Переименуйте название сайта на свой, сейчас везде стоит "bitrix".
 - В настройках подключения требуется указывать имя сервиса, например для подключения к mysql нужно указывать "mysql", а не "localhost". Пример [конфига](configs/.settings.php)  с подклчюением к mysql и memcached.
