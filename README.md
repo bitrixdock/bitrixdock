@@ -44,7 +44,7 @@ cd /var/www/bitrixdock && dc up -d
 Откройте IP машины в браузере.
 
 Если у вас всё получилось поставьте звёздочку проекту. Ошибки пишите в [issue](https://github.com/bitrixdock/bitrixdock/issues)  
-Спасибо и приятной работы!  
+Приятной работы!  
 
 ## Примечание
 - Если вы хотите начать с чистой установки Битрикса, скачайте файл [bitrixsetup.php](link=http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php) в папку с сайтом. По умолчанию стоит папки ```/var/www/bitrix/```
