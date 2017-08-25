@@ -43,7 +43,7 @@ cd /var/www/bitrixdock && dc up -d
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 ```netstat -plnt```.  
 Откройте IP машины в браузере.
 
-Если у вас всё получилось поставьте звёздочку проекту. Об ошибка пишите в [issue](https://github.com/bitrixdock/bitrixdock/issues)  
+Если у вас всё получилось поставьте звёздочку проекту. Ошибки пишите в [issue](https://github.com/bitrixdock/bitrixdock/issues)  
 Спасибо и приятной работы!  
 
 ## Примечание
