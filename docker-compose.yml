@@ -63,6 +63,7 @@ services:
             - ./data/mysql:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
             - /var/www/bitrix:/var/www/bitrix
+            - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrix
 networks:
