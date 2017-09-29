@@ -14,6 +14,21 @@ services:
         networks:
             - bitrix
         restart: always
+    # apache:
+    #     build: ./apache
+    #     container_name: apache
+    #     depends_on:
+    #         - source
+    #     volumes_from:
+    #         - source
+    #     ports:
+    #         - '80:80'
+    #         - '443:443'
+    #     links:
+    #         - php
+    #     networks:
+    #         - bitrix
+    #     restart: always
     nginx:
         build: ./nginx
         container_name: nginx
