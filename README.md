@@ -39,7 +39,7 @@ git clone git@github.com:bitrixdock/bitrixdock.git
 ```
 - Запустите bitrixdock
 ```
-cd /var/www/bitrixdock && dc up -d
+cd /var/www/bitrixdock && docker-compose up -d
 ```
 Чтобы проверить, что все сервисы запустились посмотрите список процессов ```docker ps```.  
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 ```netstat -plnt```.  
