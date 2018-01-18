@@ -39,13 +39,14 @@ git clone git@github.com:bitrixdock/bitrixdock.git
 ```
 - Запустите bitrixdock
 ```
-cd /var/www/bitrixdock && dc up -d
+cd /var/www/bitrixdock && docker-compose up -d
 ```
 Чтобы проверить, что все сервисы запустились посмотрите список процессов ```docker ps```.  
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 ```netstat -plnt```.  
 Откройте IP машины в браузере.
 
-Если у вас всё получилось поставьте звёздочку проекту. Ошибки пишите в [issue](https://github.com/bitrixdock/bitrixdock/issues)  
+Если у вас всё получилось будем благодарны за звёздочку :)  
+Ошибки ждём в [issue](https://github.com/bitrixdock/bitrixdock/issues)  
 Приятной работы!  
 
 ## Примечание

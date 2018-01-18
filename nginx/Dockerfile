@@ -3,7 +3,7 @@ FROM nginx:1.13
 MAINTAINER vitams
 
 ADD conf/nginx.conf /etc/nginx/
-ADD conf/default.conf /etc/nginx/sites-available/
+ADD conf/default.conf /etc/nginx/conf.d/
 ADD conf/upstream.conf /etc/nginx/conf.d/
 ADD www/index.html /var/www/html/
 
