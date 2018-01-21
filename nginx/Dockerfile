@@ -5,7 +5,6 @@ MAINTAINER vitams
 ADD conf/nginx.conf /etc/nginx/
 ADD conf/default.conf /etc/nginx/conf.d/
 ADD conf/upstream.conf /etc/nginx/conf.d/
-ADD www/index.html /var/www/html/
 
 RUN usermod -u 1000 www-data
 
