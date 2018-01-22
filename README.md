@@ -26,7 +26,7 @@ apt-get install -y git
 - Docker & Docker-Compose
 ```
 cd /usr/local/src && wget -qO- https://get.docker.com/ | sh && \
-curl -L "https://github.com/docker/compose/releases/download/1.15.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+curl -L "https://github.com/docker/compose/releases/download/1.18.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
 chmod +x /usr/local/bin/docker-compose && \
 echo "alias dc='docker-compose'" >> ~/.bash_aliases && \
 source ~/.bashrc
