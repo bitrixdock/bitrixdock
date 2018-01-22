@@ -2,7 +2,7 @@ version: '2'
 
 services:
     php:
-        build: ./php
+        build: ./${PHP_VERSION}
         container_name: php
         volumes_from:
             - source
@@ -14,24 +14,11 @@ services:
         networks:
             - bitrix
         restart: always
-    # apache:
-    #     build: ./apache
-    #     container_name: apache
-    #     depends_on:
-    #         - source
-    #     volumes_from:
-    #         - source
-    #     ports:
-    #         - '80:80'
-    #         - '443:443'
-    #     links:
-    #         - php
-    #     networks:
-    #         - bitrix
-    #     restart: always
-    nginx:
-        build: ./nginx
-        container_name: nginx
+    web_server:
+        build: ./${WEB_SERVER_TYPE}
+        container_name: webserver
+        depends_on:
+            - source
         volumes_from:
             - source
         ports:
@@ -39,7 +26,7 @@ services:
             - '443:443'
         links:
             - php
-        networks:
+        networks: 
             - bitrix
         restart: always
     mysql:
@@ -50,10 +37,10 @@ services:
         ports:
             - '3306:3306'
         environment:
-            MYSQL_DATABASE: bitrix
-            MYSQL_USER: bitrix
-            MYSQL_PASSWORD: 123
-            MYSQL_ROOT_PASSWORD: 123
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         networks:
             - bitrix
         restart: always
@@ -71,13 +58,15 @@ services:
         image: alpine:latest
         container_name: source
         volumes:
-            - ./logs/nginx:/var/log/nginx
+            - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
             - ./logs/php:/var/log/php
             - ./logs/mysql:/var/log/mysql
             - ./logs/memcached:/var/log/memcached
             - ./data/mysql:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
-            - /var/www/bitrix:/var/www/bitrix
+            - ./logs:/var/www/bitrix
+            - ./www/html:/var/www/html
+            - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrix
