@@ -30,7 +30,7 @@ services:
             - bitrix
         restart: always
     mysql:
-        build: ./mysql
+        build: ./${DB_SERVER_TYPE}
         container_name: mysql
         volumes_from:
             - source
@@ -60,13 +60,14 @@ services:
         volumes:
             - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
             - ./logs/php:/var/log/php
-            - ./logs/mysql:/var/log/mysql
+            - ./logs/${DB_SERVER_TYPE}:/var/log/mysql
             - ./logs/memcached:/var/log/memcached
-            - ./data/mysql:/var/lib/mysql
+            - ./data/${DB_SERVER_TYPE}:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
             - ./logs:/var/www/bitrix
             - ./www/html:/var/www/html
-            - ${SITE_PATH}:/var/www/bitrix
+            - ./www/html:/var/www/bitrix
+            # - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrix
