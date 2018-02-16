@@ -64,7 +64,7 @@ services:
             - ./logs/memcached:/var/log/memcached
             - ./data/${DB_SERVER_TYPE}:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
-            - ./logs:/var/www/bitrix
+            # - ./logs:/var/www/bitrix
             - ./www/html:/var/www/html
             - ./www/html:/var/www/bitrix
             # - ${SITE_PATH}:/var/www/bitrix

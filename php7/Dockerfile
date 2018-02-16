@@ -9,6 +9,7 @@ RUN apt-get update \
     php7.0-mbstring \
     php7.0-mysql \
     php7.0-intl \
+    php7.0-ldap \
     php7.0-xdebug \
     php7.0-soap \
     php7.0-gd \
