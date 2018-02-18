@@ -1,6 +1,19 @@
 version: '2'
 
 services:
+    php:
+        build: ./${PHP_VERSION}
+        container_name: php
+        volumes_from:
+            - source
+        ports:
+            - '9000:9000'
+        links:
+            - mysql
+            - memcached
+        networks:
+            - bitrix
+        restart: always
     web_server:
         build: ./${WEB_SERVER_TYPE}
         container_name: webserver
@@ -11,6 +24,8 @@ services:
         ports:
             - '80:80'
             - '443:443'
+        links:
+            - php
         networks: 
             - bitrix
         restart: always

@@ -1,0 +1,1 @@
+* * * * * root /usr/bin/php /var/www/html/bitrix/modules/main/tools/cron_events.php
