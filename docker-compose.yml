@@ -64,7 +64,6 @@ services:
             - ./logs/memcached:/var/log/memcached
             - ./data/mysql:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
-            - ./logs:/var/www/bitrix
             - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
