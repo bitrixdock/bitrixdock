@@ -7,7 +7,7 @@ services:
         volumes_from:
             - source
         ports:
-            - '9000:9000'
+            - '${INTERFACE}:9000:9000'
         links:
             - mysql
             - memcached
@@ -22,8 +22,8 @@ services:
         volumes_from:
             - source
         ports:
-            - '80:80'
-            - '443:443'
+            - '${INTERFACE}:80:80'
+            - '${INTERFACE}:443:443'
         links:
             - php
         networks: 
@@ -35,7 +35,7 @@ services:
         volumes_from:
             - source
         ports:
-            - '3306:3306'
+            - '${INTERFACE}:3306:3306'
         environment:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER: ${MYSQL_USER}
@@ -50,7 +50,7 @@ services:
         volumes_from:
             - source
         ports:
-            - '11211:11211'
+            - '${INTERFACE}:11211:11211'
         networks:
             - bitrix
         restart: always
