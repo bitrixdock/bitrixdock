@@ -40,7 +40,26 @@ git clone git@github.com:bitrixdock/bitrixdock.git
 
 - Выполните настройку окружения
 
+Скопируйте файл `.env_template` в `.env`
+
+```
+cp -f .env_template .env
+```
+
 По умолчнию используется nginx php7, эти настройки можно изменить в файле ```.env```. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
+
+
+```
+PHP_VERSION=php7           # Версия php 
+WEB_SERVER_TYPE=nginx      # Веб-сервер
+MYSQL_DATABASE=bitrix      # Имя базы данных
+MYSQL_USER=bitrix          # Пользователь базы данных
+MYSQL_PASSWORD=123         # Пароль для доступа к базе данных
+MYSQL_ROOT_PASSWORD=123    # Пароль для пользователя root от базы данных
+INTERFACE=0.0.0.0          # На данный интерфейс будут проксироваться порты
+SITE_PATH=/var/www/bitrix  # Путь к директории Вашего сайта
+
+```
 
 - Запустите bitrixdock
 ```
