@@ -35,7 +35,7 @@ source ~/.bashrc
 ### Начало работы
 - Склонируйте репозиторий bitrixdock
 ```
-git clone git@github.com:bitrixdock/bitrixdock.git
+git clone https://github.com/bitrixdock/bitrixdock.git
 ```
 
 - Выполните настройку окружения
