@@ -1,10 +1,4 @@
 ![Alt text](assets/logo.jpg?raw=true "BitrixDock")
-##
-Взято здесь https://github.com/bitrixdock/bitrixdock
-Изменено:
-    - база данных mariadb 10.3
-    - новая версия nginx
-    - убран apache и php56
 
 # BitrixDock
 BitrixDock позволяет легко и просто запускать **Bitrix CMS** на **Docker**.
