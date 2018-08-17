@@ -45,7 +45,7 @@ git clone https://github.com/bitrixdock/bitrixdock.git
 ```
 cp -f .env_template .env
 ```
-!Если у вас мак, то удалите строчку /etc/localtime:/etc/localtime/:ro из docker-compose
+⚠️ Если у вас мак или windows, то удалите строчку /etc/localtime:/etc/localtime/:ro из docker-compose
 
 По умолчнию используется nginx php7, эти настройки можно изменить в файле ```.env```. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
 
