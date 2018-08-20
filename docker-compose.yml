@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-    php:
-        build: ./${PHP_VERSION}
-        container_name: php
+    php-fpm:
+        build: ./${PHP_VERSION}/fpm
+        container_name: php-fpm
         volumes_from:
             - source
         ports:
@@ -14,6 +14,16 @@ services:
         networks:
             - bitrix
         restart: always
+    php-cli:
+        build: ./${PHP_VERSION}/cli
+        container_name: php-cli
+        volumes_from:
+        - source
+        links:
+        - mysql
+        - memcached
+        networks:
+        - bitrix
     web_server:
         build: ./${WEB_SERVER_TYPE}
         container_name: webserver
@@ -26,7 +36,7 @@ services:
             - '${INTERFACE}:443:443'
         links:
             - php
-        networks: 
+        networks:
             - bitrix
         restart: always
     mysql:
