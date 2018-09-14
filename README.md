@@ -92,6 +92,10 @@ P.S.
 # Ищем контрибьюторов  
 Помогите развитию проекта! Требуется закрывать задачи в [issue](https://github.com/bitrixdock/bitrixdock/issues)
 
+# Пример
+Пример реального Docker проекта для Bitrix - Single Node
+https://github.com/bitrixdock/production-single-node
+
 # Рекомендуем
 - Бекап БД в FTP хранилище по расписанию https://github.com/vmpartner/mysql-buckup
 - Работа с системой битрикс https://github.com/SidiGi/bitrix-info/wiki
