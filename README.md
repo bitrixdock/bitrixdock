@@ -96,6 +96,5 @@ P.S.
 Пример реального Docker проекта для Bitrix - Single Node
 https://github.com/bitrixdock/production-single-node
 
-# Рекомендуем
-- Бекап БД в FTP хранилище по расписанию https://github.com/vmpartner/mysql-buckup
-- Работа с системой битрикс https://github.com/SidiGi/bitrix-info/wiki
+## Рекомендую 🍭
+Крутой хостинг и хранилище https://selectel.ru/?ref_code=8m7MgmV9Axc4
