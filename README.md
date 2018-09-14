@@ -96,5 +96,5 @@ P.S.
 Пример реального Docker проекта для Bitrix - Single Node
 https://github.com/bitrixdock/production-single-node
 
-## Рекомендую 🍭
+## Рекомендуем 🍭
 Крутой хостинг и хранилище https://selectel.ru/?ref_code=8m7MgmV9Axc4
