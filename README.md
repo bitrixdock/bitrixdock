@@ -37,7 +37,8 @@ source ~/.bashrc
 ```
 mkdir -p /var/www/ && \
 cd /var/www/ && \
-git clone https://github.com/bitrixdock/bitrixdock.git
+git clone https://github.com/bitrixdock/bitrixdock.git && \
+cd bitrixdock
 ```
 
 - Выполните настройку окружения
