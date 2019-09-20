@@ -1,5 +1,11 @@
 version: '2'
 
+volumes:
+  site:
+  db:
+    driver: local
+
+
 services:
     php:
         build: ./${PHP_VERSION}
@@ -63,7 +69,7 @@ services:
             - ./logs/php:/var/log/php
             - ./logs/mysql:/var/log/mysql
             - ./logs/memcached:/var/log/memcached
-            - ./data/mysql:/var/lib/mysql
+            - db:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
             - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
