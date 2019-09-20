@@ -33,9 +33,9 @@ source ~/.bashrc
 ```
 
 ### Начало работы
-- Склонируйте репозиторий bitrixdock
 ```
-mkdir -p /var/www/ && \
+mkdir -p /var/www/bitrix && \
+wget http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
 cd /var/www/ && \
 git clone https://github.com/bitrixdock/bitrixdock.git && \
 cd bitrixdock
@@ -78,7 +78,7 @@ docker-compose up -d
 Приятной работы!  
 
 ## Примечание
-- Если вы хотите начать с чистой установки Битрикса, скачайте файл [bitrixsetup.php](http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php) в папку с сайтом. По умолчанию стоит папка ```/var/www/bitrix/```
+- По умолчанию стоит папка ```/var/www/bitrix/```
 - В настройках подключения требуется указывать имя сервиса, например для подключения к mysql нужно указывать "mysql", а не "localhost". Пример [конфига](configs/.settings.php)  с подклчюением к mysql и memcached.
 - Для загрузки резервной копии в контейнер используйте команду: ```cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix```
 
