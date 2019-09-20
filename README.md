@@ -39,7 +39,8 @@ cd /var/www/bitrix && \
 wget http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
 cd /var/www/ && \
 git clone https://github.com/bitrixdock/bitrixdock.git && \
-cd bitrixdock
+cd /var/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
+cd /var/www/bitrixdock
 ```
 
 - Выполните настройку окружения
