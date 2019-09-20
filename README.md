@@ -35,6 +35,7 @@ source ~/.bashrc
 ### Начало работы
 ```
 mkdir -p /var/www/bitrix && \
+cd /var/www/bitrix && \
 wget http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
 cd /var/www/ && \
 git clone https://github.com/bitrixdock/bitrixdock.git && \
