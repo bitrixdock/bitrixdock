@@ -79,6 +79,9 @@ docker-compose up -d
 Ошибки ждём в [issue](https://github.com/bitrixdock/bitrixdock/issues)  
 Приятной работы!  
 
+## Как заполнять подключение к БД
+![db](https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/db.png)
+
 ## Примечание
 - По умолчанию стоит папка ```/var/www/bitrix/```
 - В настройках подключения требуется указывать имя сервиса, например для подключения к mysql нужно указывать "mysql", а не "localhost". Пример [конфига](configs/.settings.php)  с подклчюением к mysql и memcached.
