@@ -35,6 +35,8 @@ source ~/.bashrc
 ### Начало работы
 - Склонируйте репозиторий bitrixdock
 ```
+mkdir -p /var/www/ && \
+cd /var/www/ && \
 git clone https://github.com/bitrixdock/bitrixdock.git
 ```
 
