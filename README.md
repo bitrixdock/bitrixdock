@@ -101,7 +101,7 @@ P.S.
 Помогите развитию проекта! Требуется закрывать задачи в [issue](https://github.com/bitrixdock/bitrixdock/issues)
 
 # Пример
-Пример реального Docker проекта для Bitrix - Single Node
+Пример реального Docker проекта для Bitrix - Single Node    
 https://github.com/bitrixdock/production-single-node   
 
 Ещё один проект с php7 и отправкой почты, взят с боевого проекта, вырезаны пароли, сертификаты и тп   
