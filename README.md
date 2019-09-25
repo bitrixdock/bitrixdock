@@ -102,6 +102,7 @@ P.S.
 
 # Пример
 Пример реального Docker проекта для Bitrix - Single Node
-https://github.com/bitrixdock/production-single-node  
-Ещё один проект с php7 и отправкой почты, взят с боевого проекта, вырезаны пароли, сертификаты и тп  
+https://github.com/bitrixdock/production-single-node   
+
+Ещё один проект с php7 и отправкой почты, взят с боевого проекта, вырезаны пароли, сертификаты и тп   
 https://github.com/bitrixdock/bitrixdock-production
