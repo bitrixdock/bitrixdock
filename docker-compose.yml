@@ -21,7 +21,7 @@ services:
             - bitrix
         restart: always
     web_server:
-        build: ./${WEB_SERVER_TYPE}
+        build: ./nginx
         container_name: webserver
         depends_on:
             - source
