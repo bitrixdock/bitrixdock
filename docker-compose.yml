@@ -29,7 +29,6 @@ services:
             - source
         ports:
             - '${INTERFACE}:80:80'
-            - '${INTERFACE}:443:443'
         links:
             - php
         networks: 
