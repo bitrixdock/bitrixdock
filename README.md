@@ -56,8 +56,9 @@ cp -f .env_template .env
 
 
 ```
-PHP_VERSION=php7           # Версия php 
+PHP_VERSION=php71          # Версия php 
 WEB_SERVER_TYPE=nginx      # Веб-сервер nginx/apache
+DB_SERVER_TYPE=mysql       # Сервер базы данных mysql/percona
 MYSQL_DATABASE=bitrix      # Имя базы данных
 MYSQL_USER=bitrix          # Пользователь базы данных
 MYSQL_PASSWORD=123         # Пароль для доступа к базе данных
