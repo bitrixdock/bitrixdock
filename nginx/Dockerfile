@@ -1,4 +1,4 @@
-FROM nginx:1.14
+FROM nginx:1.17
 
 ADD conf/nginx.conf /etc/nginx/
 ADD conf/default.conf /etc/nginx/conf.d/

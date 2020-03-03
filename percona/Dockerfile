@@ -1,6 +1,4 @@
-FROM mysql:8.0
-
-MAINTAINER vitams
+FROM percona:8.0
 
 ADD my.cnf /etc/mysql/conf.d/my.cnf
 

@@ -15,7 +15,7 @@ services:
         ports:
             - '${INTERFACE}:9000:9000'
         links:
-            - mysql
+            - db
             - memcached
         networks:
             - bitrix
@@ -35,9 +35,9 @@ services:
         networks: 
             - bitrix
         restart: always
-    mysql:
-        build: ./mysql
-        container_name: mysql
+    db:
+        build: ./${DB_SERVER_TYPE}
+        container_name: db
         volumes_from:
             - source
         ports:
@@ -67,7 +67,7 @@ services:
         volumes:
             - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
             - ./logs/php:/var/log/php
-            - ./logs/mysql:/var/log/mysql
+            - ./logs/db:/var/log/mysql
             - ./logs/memcached:/var/log/memcached
             - db:/var/lib/mysql
             - ./data/memcached:/var/lib/memcached
