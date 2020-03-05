@@ -39,7 +39,7 @@ return [
         [
             'value' =>
                 [
-                    'debug' => false,
+                    'debug' => true,
                     'handled_errors_types' => 4437,
                     'exception_errors_types' => 4437,
                     'ignore_silence' => false,
@@ -56,7 +56,7 @@ return [
                     'default' =>
                         [
                             'className' => '\\Bitrix\\Main\\DB\\MysqliConnection',
-                            'host' => 'mysql',
+                            'host' => 'db',
                             'database' => 'bitrix',
                             'login' => 'root',
                             'password' => '123',
