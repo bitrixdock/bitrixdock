@@ -23,7 +23,7 @@ BitrixDock облегчает разработку на Битрикс пред�
 
 ## Автоматическая установка  
 ```
-install.sh
+curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh -o install.sh | sh install.sh
 ```
 
 ## Ручная установка   
