@@ -24,13 +24,15 @@ BitrixDock запускает демо Битрикса предоставляя
 curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh -o install.sh | chmod +x install.sh | sh install.sh
 ```
 
+<details><summary>Ручная установка</summary>
+<p>
 ## Ручная установка   
-#### Зависимости
-- Git
+#### Зависимости   
+- Git  
 ```
 apt-get install -y git
 ```
-- Docker & Docker-Compose
+- Docker & Docker-Compose  
 ```
 cd /usr/local/src && wget -qO- https://get.docker.com/ | sh && \
 curl -L "https://github.com/docker/compose/releases/download/1.18.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
@@ -82,6 +84,8 @@ docker-compose up -d
 Чтобы проверить, что все сервисы запустились посмотрите список процессов ```docker ps```.  
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 ```netstat -plnt```.  
 Откройте IP машины в браузере.
+</p>
+</details>
 
 Если у вас всё получилось будем благодарны за звёздочку :)  
 Ошибки ждём в [issue](https://github.com/bitrixdock/bitrixdock/issues)  
