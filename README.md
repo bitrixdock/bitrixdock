@@ -26,6 +26,7 @@ curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/instal
 
 <details><summary>Ручная установка</summary>
 <p>
+  
 ## Ручная установка   
 #### Зависимости   
 - Git  
@@ -59,7 +60,7 @@ cd /var/www/bitrixdock
 ```
 cp -f .env_template .env
 ```
-⚠ Если у вас мак, удалите строчку /etc/localtime:/etc/localtime/:ro из docker-compose
+⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose
 
 По умолчнию используется nginx, php7, mysql. Настройки можно изменить в файле ```.env```. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
 
