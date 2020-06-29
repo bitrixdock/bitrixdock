@@ -61,6 +61,15 @@ services:
         networks:
             - bitrix
         restart: always
+    adminer:
+        image: adminer
+        container_name: adminer
+        links:
+            - db:db
+        ports:
+            - '${INTERFACE}:8080:8080'
+        networks:
+            - bitrix
     source:
         image: alpine:latest
         container_name: source
