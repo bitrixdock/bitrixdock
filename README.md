@@ -122,3 +122,34 @@ https://github.com/bitrixdock/bitrixdock-production
 
 Реальные проекты на основе этих проектов работают годами без проблем если их не трогать )
 ![Alt text](assets/Clip2net_200727170318.png?raw=true "BitrixDock")
+
+# Для контрибьюторов
+// 1. Форкаем оригинальный проект https://github.com/bitrixdock/bitrixdock кнопкой Fork  
+// 2. Клонируем форк себе на компьютер  
+```
+git clone https://github.com/my_account/bitrixdock  
+cd bitrixdock  
+```
+// 3. Создаем новую ветку  
+```
+git checkout -b myfix  
+```
+// 4. Создаем upstream на оригинальный проект  
+```
+git remote add upstream https://github.com/bitrixdock/bitrixdock  
+```
+// 5. Меняем файлы  
+// 6. Делаем коммит и отправляем правки  
+```
+git add .  
+git commit -am "My fixes"  
+git push -u origin new_branch  
+```
+// 7. Переходим в свой проект https://github.com/my_account/bitrixdock и жмем кнопку Compare & pull  
+// 8. Описываем какую проблему решает Пул Реквест (не пишите что поменялось, это видно и так по файлам)  
+// 9. Вы прекрасны! ;)
+
+
+
+
+
