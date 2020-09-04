@@ -145,7 +145,7 @@ git add .
 git commit -am "My fixes"  
 git push -u origin new_branch  
 ```
-// 7. Переходим в свой проект https://github.com/my_account/bitrixdock и жмем кнопку Compare & pull  
+// 7. Переходим в свой проект ```https://github.com/my_account/bitrixdock``` и жмем кнопку Compare & pull  
 // 8. Описываем какую проблему решает Пул Реквест (не пишите что поменялось, это видно и так по файлам)  
 // 9. Вы прекрасны! ;)
 
