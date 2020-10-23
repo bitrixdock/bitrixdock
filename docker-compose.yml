@@ -62,12 +62,14 @@ services:
             - bitrix
         restart: always
     adminer:
-        image: adminer
+        image: dockette/adminer:full
         container_name: ${PROJECT}adminer
         links:
             - db:db
         ports:
-            - '${INTERFACE}:8080:8080'
+            - '${INTERFACE}:8080:80'
+        environment:
+            UPLOAD: 1024M # upload_max_filesize, post_max_size
         networks:
             - bitrix
     source:
