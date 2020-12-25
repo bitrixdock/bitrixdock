@@ -7,7 +7,7 @@ RUN apt-get update \
     php7.4-mbstring \
     php7.4-mysql \
     php7.4-intl \
-    php7.4-xdebug \
+    php7.4-xdebug \ # DO NOT install this package for site running in production! It will slow it down.
     php7.4-interbase \
     php7.4-soap \
     php7.4-gd \
