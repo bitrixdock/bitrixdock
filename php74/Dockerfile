@@ -7,7 +7,7 @@ RUN apt-get update \
     php7.4-mbstring \
     php7.4-mysql \
     php7.4-intl \
-    php7.4-xdebug \ # DO NOT install this package for site running in production! It will slow it down.
+    php7.4-xdebug \
     php7.4-interbase \
     php7.4-soap \
     php7.4-gd \
@@ -18,6 +18,7 @@ RUN apt-get update \
     && pecl install mcrypt-1.0.3 \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
+# DO NOT install php7.4-xdebug package for site running in production! It will slow it down significantly.
 
 ADD ./php.ini /etc/php/7.4/fpm/conf.d/90-php.ini
 ADD ./php.ini /etc/php/7.4/cli/conf.d/90-php.ini
