@@ -121,11 +121,15 @@ https://github.com/bitrixdock/production-single-node
 Ещё один проект с php7 и отправкой почты, взят с боевого проекта, вырезаны пароли, сертификаты и тп
 https://github.com/bitrixdock/bitrixdock-production
 
+Ещё один production проект с php7.4, почтой и кроном в контейнере и развёрнутым Readme (англ.):
+https://github.com/paskal/bitrix.infra
+
 Реальные проекты на основе этих проектов работают годами без проблем если их не трогать )
 ![Alt text](assets/Clip2net_200727170318.png?raw=true "BitrixDock")
 
 # Для контрибьюторов
 // 1. Форкаем оригинальный проект https://github.com/bitrixdock/bitrixdock кнопкой Fork
+
 // 2. Клонируем форк себе на компьютер
 ```
 git clone https://github.com/my_account/bitrixdock
@@ -140,6 +144,7 @@ git checkout -b myfix
 git remote add upstream https://github.com/bitrixdock/bitrixdock
 ```
 // 5. Меняем файлы
+
 // 6. Делаем коммит и отправляем правки
 ```
 git add .
@@ -147,7 +152,9 @@ git commit -am "My fixes"
 git push -u origin new_branch
 ```
 // 7. Переходим в свой проект ```https://github.com/my_account/bitrixdock``` и жмем кнопку Compare & pull
+
 // 8. Описываем какую проблему решает Пул Реквест с кратким описанием, зачем сделано изменение
+
 // 9. Вы прекрасны! ;)
 
 
