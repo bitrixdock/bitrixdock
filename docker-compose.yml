@@ -37,6 +37,7 @@ services:
         restart: always
     db:
         build: ./${DB_SERVER_TYPE}
+        platform: linux/amd64
         container_name: ${PROJECT}db
         volumes_from:
             - source
