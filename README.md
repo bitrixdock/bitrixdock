@@ -121,7 +121,7 @@ https://github.com/bitrixdock/production-single-node
 Ещё один проект с php7 и отправкой почты, взят с боевого проекта, вырезаны пароли, сертификаты и тп
 https://github.com/bitrixdock/bitrixdock-production
 
-Ещё один production проект с php7.4, почтой и кроном в контейнере и развёрнутым Readme (англ.):
+Ещё один production проект с memcached композитом, php7.4, почтой и кроном в контейнере и развёрнутым Readme (англ.):
 https://github.com/paskal/bitrix.infra
 
 Реальные проекты на основе этих проектов работают годами без проблем если их не трогать )
