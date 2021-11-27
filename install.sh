@@ -10,13 +10,12 @@ echo "Check requirments"
 [ ! hash docker-compose ] && curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && source ~/.bashrc
 
 echo "Create folder struct"
-mkdir -p /var/www/bitrix && \
-cd /var/www/bitrix && \
-wget http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
-cd /var/www/ && \
-git clone https://github.com/bitrixdock/bitrixdock.git && \
-cd /var/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
-cd /var/www/bitrixdock
+git clone https://github.com/Cheplev/bitrixdock.git && \
+chmod -R 775 pwd | sed 's#.*/##'/ && chown -R root:www-data pwd | sed 's#.*/##'/ && \
+echo 'Download restore.php'
+mkdir www && cd www && \
+wget http://www.1c-bitrix.ru/download/scripts/restore.php && \
+cd ../bitrixdock
 
 echo "Config"
 cp -f .env_template .env
