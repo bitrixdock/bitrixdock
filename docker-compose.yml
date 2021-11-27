@@ -77,15 +77,14 @@ services:
         image: alpine:latest
         container_name: ${PROJECT}source
         volumes:
-            - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
-            - ./logs/php:/var/log/php
-            - ./logs/db:/var/log/mysql
-            - ./logs/memcached:/var/log/memcached
-            - db:/var/lib/mysql
-            - ./data/memcached:/var/lib/memcached
-            - ./www/html:/var/www/html
-            - ${SITE_PATH}:/var/www/bitrix
-            - /etc/localtime:/etc/localtime/:ro
+            - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}:delegated
+            - ./logs/php:/var/log/php:delegated
+            - ./logs/db:/var/log/mysql:delegated
+            - ./logs/memcached:/var/log/memcached:delegated
+            - db:/var/lib/mysql:delegated
+            - ./data/memcached:/var/lib/memcached:delegated
+            - ./www/html:/var/www/html:delegated
+            - ${SITE_PATH}:/var/www/bitrix:delegated
         networks:
             - bitrix
 networks:
