@@ -9,7 +9,6 @@ volumes:
 services:
     php:
         build: ./${PHP_VERSION}
-        container_name: ${PROJECT}php
         volumes_from:
             - source
         ports:
@@ -22,7 +21,6 @@ services:
         restart: always
     web_server:
         build: ./${WEB_SERVER_TYPE}
-        container_name: ${PROJECT}webserver
         depends_on:
             - source
         volumes_from:
@@ -32,13 +30,12 @@ services:
             - '${INTERFACE}:443:443'
         links:
             - php
-        networks: 
+        networks:
             - bitrix
         restart: always
     db:
         build: ./${DB_SERVER_TYPE}
         platform: linux/amd64
-        container_name: ${PROJECT}db
         volumes_from:
             - source
         ports:
@@ -54,7 +51,6 @@ services:
         restart: always
     memcached:
         image: memcached:1.5-alpine
-        container_name: ${PROJECT}memcached
         volumes_from:
             - source
         ports:
@@ -64,7 +60,6 @@ services:
         restart: always
     adminer:
         image: dockette/adminer:full
-        container_name: ${PROJECT}adminer
         links:
             - db:db
         ports:
@@ -75,7 +70,6 @@ services:
             - bitrix
     source:
         image: alpine:latest
-        container_name: ${PROJECT}source
         volumes:
             - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
             - ./logs/php:/var/log/php
