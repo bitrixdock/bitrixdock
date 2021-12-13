@@ -1,11 +1,5 @@
 version: '2'
 
-volumes:
-  site:
-  db:
-    driver: local
-
-
 services:
     php:
         build: ./${PHP_VERSION}
@@ -82,6 +76,11 @@ services:
             - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrix
+
+volumes:
+    db:
+        driver: local
+
 networks:
     bitrix:
         driver: bridge
