@@ -44,7 +44,7 @@ services:
             - bitrix
         restart: always
     memcached:
-        image: memcached:1.5-alpine
+        image: memcached:1.6.12-alpine
         volumes_from:
             - source
         ports:
@@ -70,7 +70,7 @@ services:
             - ./logs/db:/var/log/mysql
             - ./logs/memcached:/var/log/memcached
             - db:/var/lib/mysql
-            - ./data/memcached:/var/lib/memcached
+            - cache:/var/lib/memcached
             - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
@@ -79,6 +79,8 @@ services:
 
 volumes:
     db:
+        driver: local
+    cache:
         driver: local
 
 networks:
