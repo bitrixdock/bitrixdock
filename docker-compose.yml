@@ -5,8 +5,6 @@ services:
         build: ./${PHP_VERSION}
         volumes_from:
             - source
-        ports:
-            - '127.0.0.1:9000:9000'
         links:
             - db
             - memcached
