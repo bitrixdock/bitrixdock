@@ -1,4 +1,4 @@
-FROM phpdockerio/php74-fpm:latest
+FROM phpdockerio/php:7.4-fpm
 
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
