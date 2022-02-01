@@ -1,4 +1,4 @@
-FROM phpdockerio/php80-fpm:latest
+FROM phpdockerio/php:8.0-fpm
 
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
