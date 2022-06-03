@@ -95,7 +95,7 @@ docker-compose up -d
 
 ### Остановка
 ```
-docker-compose down -d
+docker-compose down
 ```
 ## Как заполнять подключение к БД
 ![db](https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/db.png)
