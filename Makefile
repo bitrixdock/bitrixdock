@@ -12,7 +12,7 @@ console-root: ## Run bash (PHP) from "root"
 	docker-compose exec -u root php bash
 
 console-mysql: ## Log in to the MySQL console from default user
-	docker-compose exec db mysql -u $(MYSQL_USER) --password=$(MYSQL_ROOT_PASSWORD) -A $(MYSQL_DATABASE)
+	docker-compose exec db mysql -u $(MYSQL_USER) --password=$(MYSQL_PASSWORD) -A $(MYSQL_DATABASE)
 
 console-mysql-root: ## Log in to the MySQL console from "root"
 	docker-compose exec db mysql -u root --password=$(MYSQL_ROOT_PASSWORD) -A $(MYSQL_DATABASE)
