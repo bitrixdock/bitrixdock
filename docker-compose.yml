@@ -10,7 +10,7 @@ services:
             - memcached
         networks:
             - bitrix
-        restart: always
+        restart: unless-stopped
     web_server:
         build: ./${WEB_SERVER_TYPE}
         depends_on:
@@ -24,7 +24,7 @@ services:
             - php
         networks:
             - bitrix
-        restart: always
+        restart: unless-stopped
     db:
         build: ./${DB_SERVER_TYPE}
         platform: linux/amd64
@@ -40,7 +40,7 @@ services:
         command: mysqld --sql-mode=""
         networks:
             - bitrix
-        restart: always
+        restart: unless-stopped
     memcached:
         image: memcached:1.6.12-alpine
         volumes_from:
@@ -49,7 +49,7 @@ services:
             - '${INTERFACE}:11211:11211'
         networks:
             - bitrix
-        restart: always
+        restart: unless-stopped
     adminer:
         image: dockette/adminer:full
         links:
