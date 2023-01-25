@@ -28,6 +28,8 @@ services:
     db:
         build: ./${DB_SERVER_TYPE}
         platform: linux/amd64
+        volumes:
+            - ./${DB_SERVER_TYPE}/init:/docker-entrypoint-initdb.d
         volumes_from:
             - source
         ports:
@@ -37,7 +39,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        command: mysqld --sql-mode=""
+        command: mysqld --user=root --sql-mode=""
         networks:
             - bitrix
         restart: unless-stopped
