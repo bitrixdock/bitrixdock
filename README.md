@@ -15,7 +15,9 @@ BitrixDock запускает демо Битрикса предоставляя
 - Ничего лишнего.
 
 ## Порядок разработки в Windows
-Если вы работаете в Windows, то требуется установить виртуальную машину, тестировалось на Ubuntu 18.04.
+Если вы работаете в Windows, то все заводится на штатном WSL2 + Docker Desktop
+
+Как альтернативный вариант - можно поднять виртуальную машину (через Vagrant, VirtualBox, VMware и тп), тестировалось на Ubuntu 18.04.
 Ваш рабочий проект должен хранится в двух местах, первое — локальная папка с проектами на хосте (открывается в IDE), второе — виртуальная машина
 (например ```/var/www/bitrix```). Проект на хосте мапится в IDE к гостевой OC.
 
@@ -31,12 +33,12 @@ curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/instal
 #### Зависимости
 - Git
 ```
-apt-get install -y git
+apt-get update && apt-get install -y git
 ```
 - Docker & Docker-Compose
 ```
 cd /usr/local/src && wget -qO- https://get.docker.com/ | sh && \
-curl -L "https://github.com/docker/compose/releases/download/1.18.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
 chmod +x /usr/local/bin/docker-compose && \
 echo "alias dc='docker-compose'" >> ~/.bash_aliases && \
 source ~/.bashrc
@@ -46,7 +48,7 @@ source ~/.bashrc
 ```
 mkdir -p /var/www/bitrix && \
 cd /var/www/bitrix && \
-wget http://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
+wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
 cd /var/www/ && \
 git clone https://github.com/bitrixdock/bitrixdock.git && \
 cd /var/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
@@ -60,21 +62,22 @@ cd /var/www/bitrixdock
 ```
 cp -f .env_template .env
 ```
-⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose
+⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose.yml
 
-По умолчанию используется nginx, php7, mysql. Настройки можно изменить в файле ```.env```. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
+По умолчанию используется nginx, php 7.4, mysql. Настройки можно изменить в файле ```.env```. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
 
 
 ```
-PHP_VERSION=php74          # Версия php
-WEB_SERVER_TYPE=nginx      # Веб-сервер nginx/apache
-DB_SERVER_TYPE=mysql       # Сервер базы данных mysql/percona
-MYSQL_DATABASE=bitrix      # Имя базы данных
-MYSQL_USER=bitrix          # Пользователь базы данных
-MYSQL_PASSWORD=123         # Пароль для доступа к базе данных
-MYSQL_ROOT_PASSWORD=123    # Пароль для пользователя root от базы данных
-INTERFACE=0.0.0.0          # На данный интерфейс будут проксироваться порты
-SITE_PATH=/var/www/bitrix  # Путь к директории Вашего сайта
+COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
+PHP_VERSION=php74                # Версия php
+WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
+DB_SERVER_TYPE=mysql             # Сервер базы данных mysql/percona
+MYSQL_DATABASE=bitrix            # Имя базы данных
+MYSQL_USER=bitrix                # Пользователь базы данных
+MYSQL_PASSWORD=123               # Пароль для доступа к базе данных
+MYSQL_ROOT_PASSWORD=123          # Пароль для пользователя root от базы данных
+INTERFACE=0.0.0.0                # На данный интерфейс будут проксироваться порты
+SITE_PATH=/var/www/bitrix        # Путь к директории Вашего сайта
 
 ```
 </p>
@@ -120,7 +123,7 @@ P.S.
 
 - Настройки xdebug задаются в `phpXX/php.ini`.
 - Для php73, php74 дефолтовые настройки xdebug - коннект на порт `9003` хоста, с которого пришел запрос. В случае невозможности коннекта - фаллбек на `host.docker.internal`.
-- При изменении `php.ini` в проекте не забудьте добавить флаг `--build` при запуске `docker-compose`, чтобы форсировать пересборку имиджа.
+- При изменении `php.ini` в проекте не забудьте добавить флаг `--build` при запуске `docker-compose`, чтобы форсировать пересборку образа.
 
 
 # Ищем контрибьюторов
@@ -140,34 +143,30 @@ https://github.com/paskal/bitrix.infra
 ![Alt text](assets/Clip2net_200727170318.png?raw=true "BitrixDock")
 
 # Для контрибьюторов
-// 1. Форкаем оригинальный проект https://github.com/bitrixdock/bitrixdock кнопкой Fork
-
-// 2. Клонируем форк себе на компьютер
+1. Форкаем оригинальный проект https://github.com/bitrixdock/bitrixdock кнопкой Fork
+2. Клонируем форк себе на компьютер
 ```
 git clone https://github.com/my_account/bitrixdock
 cd bitrixdock
 ```
-// 3. Создаем новую ветку
+3. Создаем новую ветку
 ```
 git checkout -b myfix
 ```
-// 4. Создаем upstream на оригинальный проект
+4. Создаем upstream на оригинальный проект
 ```
 git remote add upstream https://github.com/bitrixdock/bitrixdock
 ```
-// 5. Меняем файлы
-
-// 6. Делаем коммит и отправляем правки
+5. Меняем файлы
+6. Делаем коммит и отправляем правки
 ```
 git add .
 git commit -am "My fixes"
 git push -u origin new_branch
 ```
-// 7. Переходим в свой проект ```https://github.com/my_account/bitrixdock``` и жмем кнопку Compare & pull
-
-// 8. Описываем какую проблему решает Пул Реквест с кратким описанием, зачем сделано изменение
-
-// 9. Вы прекрасны! ;)
+7. Переходим в свой проект ```https://github.com/my_account/bitrixdock``` и жмем кнопку Compare & pull request
+8. Описываем какую проблему решает Пул Реквест с кратким описанием, зачем сделано изменение
+9. Вы прекрасны! ;)
 
 
 

@@ -1,3 +1,5 @@
 .idea
+.vscode
+.fleet
 logs
 .env

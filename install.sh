@@ -3,7 +3,7 @@ set -e
 
 # This script is meant for quick & easy install via:
 # $ curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh -o install.sh | sh install.sh
-echo "Check requirments"
+echo "Check requirements"
 apt-get -qq update
 hash git 2>/dev/null || { apt-get install -y git; }
 hash docker 2>/dev/null || { cd /usr/local/src && wget -qO- https://get.docker.com/ | sh; }
