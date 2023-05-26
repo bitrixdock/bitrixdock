@@ -15,4 +15,4 @@ cp -f /var/www/bitrixdock/.env_template /var/www/bitrixdock/.env
 
 echo "Run"
 docker compose -p bitrixdock down
-docker compose -f /var/www/bitrix/docker-compose.yml -p bitrixdock up -d
+docker compose -f /var/www/bitrixdock/docker-compose.yml -p bitrixdock up -d
