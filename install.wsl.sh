@@ -11,7 +11,7 @@ git clone https://github.com/bitrixdock/bitrixdock.git && \
 chmod -R 775 /var/www/bitrix && chown -R root:www-data /var/www/bitrix && \
 
 echo "Config"
-cp -f /var/www/bitrix/.env_template /var/www/bitrix/.env
+cp -f /var/www/bitrixdock/.env_template /var/www/bitrixdock/.env
 
 echo "Run"
 docker compose -p bitrixdock down
