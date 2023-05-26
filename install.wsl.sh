@@ -7,7 +7,7 @@ cd /var/www && \
 rm -f /var/www/bitrix/bitrixsetup.php && \
 wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php -P /var/www/bitrix/ && \
 rm -rf /var/www/bitrixdock && \
-git clone https://github.com/bitrixdock/bitrixdock.git && \
+git clone --depth=1 https://github.com/bitrixdock/bitrixdock.git && \
 chmod -R 775 /var/www/bitrix && chown -R root:www-data /var/www/bitrix && \
 
 echo "Config"
