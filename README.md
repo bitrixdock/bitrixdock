@@ -21,12 +21,18 @@ BitrixDock запускает демо Битрикса предоставляя
 Ваш рабочий проект должен хранится в двух местах, первое — локальная папка с проектами на хосте (открывается в IDE), второе — виртуальная машина
 (например ```/var/www/bitrix```). Проект на хосте мапится в IDE к гостевой OC.
 
-## Автоматическая установка
+## Автоматическая установка для WSL (Рекомендуем)
+```
+curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.wsl.sh -o install.wsl.sh && chmod +x install.wsl.sh && sh install.wsl.sh
+```
+
+## Автоматическая установка для Виртуальной машины
 ```
 curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh -o install.sh && chmod +x install.sh && sh install.sh
 ```
 
-<details><summary>Ручная установка</summary>
+## Ручная установка
+<details><summary>Читать</summary>
 <p>
 
 ## Ручная установка
@@ -90,7 +96,7 @@ SITE_PATH=/var/www/bitrix        # Путь к директории Вашего
 ## Запуск и остановка bitrixdock
 ### Запуск
 ```
-docker-compose up -d
+docker compose -p bitrixdock up -d
 ```
 Чтобы проверить, что все сервисы запустились посмотрите список процессов ```docker ps```.
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 ```netstat -plnt```.
@@ -98,7 +104,12 @@ docker-compose up -d
 
 ### Остановка
 ```
-docker-compose down
+docker compose -p bitrixdock stop
+```
+
+### Полное удаление
+```
+docker compose -p bitrixdock down
 ```
 ## Как заполнять подключение к БД
 ![db](https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/assets/db.png)
