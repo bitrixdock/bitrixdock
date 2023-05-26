@@ -27,7 +27,6 @@ services:
         restart: unless-stopped
     db:
         build: ./${DB_SERVER_TYPE}
-        platform: linux/amd64
         volumes:
             - ./${DB_SERVER_TYPE}/init:/docker-entrypoint-initdb.d
         volumes_from:
@@ -71,7 +70,6 @@ services:
             - ./logs/memcached:/var/log/memcached
             - db:/var/lib/mysql
             - cache:/var/lib/memcached
-            - ./www/html:/var/www/html
             - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
         networks:
