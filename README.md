@@ -22,12 +22,12 @@ BitrixDock запускает демо Битрикса предоставляя
 (например ```/var/www/bitrix```). Проект на хосте мапится в IDE к гостевой OC.
 
 ## Автоматическая установка для WSL (Рекомендуем)
-```
+```shell
 curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.wsl.sh?$(date +%s) -o install.wsl.sh && chmod +x install.wsl.sh && sh install.wsl.sh
 ```
 
 ## Автоматическая установка для Виртуальной машины
-```
+```shell
 curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh -o install.sh && chmod +x install.sh && sh install.sh
 ```
 
@@ -35,14 +35,13 @@ curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/instal
 <details><summary>Читать</summary>
 <p>
 
-## Ручная установка
 #### Зависимости
 - Git
-```
+```shell
 apt-get update && apt-get install -y git
 ```
 - Docker & Docker-Compose
-```
+```shell
 cd /usr/local/src && wget -qO- https://get.docker.com/ | sh && \
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
 chmod +x /usr/local/bin/docker-compose && \
@@ -51,7 +50,7 @@ source ~/.bashrc
 ```
 
 ### Папки и файл Битрикс
-```
+```shell
 mkdir -p /var/www/bitrix && \
 cd /var/www/bitrix && \
 wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
@@ -65,7 +64,7 @@ cd /var/www/bitrixdock
 
 Скопируйте файл `.env_template` в `.env`
 
-```
+```shell
 cp -f .env_template .env
 ```
 ⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose.yml
@@ -73,7 +72,7 @@ cp -f .env_template .env
 По умолчанию используется nginx, php 7.4, mysql. Настройки можно изменить в файле ```.env```. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
 
 
-```
+```dotenv
 COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
 PHP_VERSION=php74                # Версия php
 WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
@@ -84,7 +83,6 @@ MYSQL_PASSWORD=123               # Пароль для доступа к баз�
 MYSQL_ROOT_PASSWORD=123          # Пароль для пользователя root от базы данных
 INTERFACE=0.0.0.0                # На данный интерфейс будут проксироваться порты
 SITE_PATH=/var/www/bitrix        # Путь к директории Вашего сайта
-
 ```
 </p>
 </details>
@@ -95,7 +93,7 @@ SITE_PATH=/var/www/bitrix        # Путь к директории Вашего
 
 ## Запуск и остановка bitrixdock
 ### Запуск
-```
+```shell
 docker compose -p bitrixdock up -d
 ```
 Чтобы проверить, что все сервисы запустились посмотрите список процессов ```docker ps```.
@@ -103,12 +101,12 @@ docker compose -p bitrixdock up -d
 Откройте IP машины в браузере.
 
 ### Остановка
-```
+```shell
 docker compose -p bitrixdock stop
 ```
 
 ### Полное удаление
-```
+```shell
 docker compose -p bitrixdock down
 ```
 ## Как заполнять подключение к БД
@@ -156,21 +154,21 @@ https://github.com/paskal/bitrix.infra
 # Для контрибьюторов
 1. Форкаем оригинальный проект https://github.com/bitrixdock/bitrixdock кнопкой Fork
 2. Клонируем форк себе на компьютер
-```
+```shell
 git clone https://github.com/my_account/bitrixdock
 cd bitrixdock
 ```
 3. Создаем новую ветку
-```
+```shell
 git checkout -b myfix
 ```
 4. Создаем upstream на оригинальный проект
-```
+```shell
 git remote add upstream https://github.com/bitrixdock/bitrixdock
 ```
 5. Меняем файлы
 6. Делаем коммит и отправляем правки
-```
+```shell
 git add .
 git commit -am "My fixes"
 git push -u origin new_branch
