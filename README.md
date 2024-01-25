@@ -42,7 +42,7 @@ apt-get update && apt-get install -y git
 ```
 - Docker & Docker-Compose
 ```shell
-cd /usr/local/src && wget -qO- https://get.docker.com/ | sh && \
+cd /usr/local/src && curl -fsSL https://get.docker.com/ | sh && \
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
 chmod +x /usr/local/bin/docker-compose && \
 echo "alias dc='docker-compose'" >> ~/.bash_aliases && \
@@ -52,8 +52,7 @@ source ~/.bashrc
 ### Папки и файл Битрикс
 ```shell
 mkdir -p /var/www/bitrix && \
-cd /var/www/bitrix && \
-wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
+curl -fsSL https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php -o /var/www/bitrix/bitrixsetup.php && \
 cd /var/www/ && \
 git clone https://github.com/bitrixdock/bitrixdock.git && \
 cd /var/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
