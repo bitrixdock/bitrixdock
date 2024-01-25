@@ -2,7 +2,6 @@ FROM phpdockerio/php:8.0-fpm
 
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
-    php8.0-dev \
     php8.0-gd \
     php8.0-imagick \
     php8.0-intl \
@@ -15,7 +14,6 @@ RUN apt-get update \
     php8.0-opcache \
     php8.0-soap \
     php8.0-zip \
-    php-pear \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 COPY ./php.ini /etc/php/8.0/fpm/conf.d/90-php.ini
