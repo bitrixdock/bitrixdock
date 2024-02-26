@@ -12,6 +12,7 @@ chmod -R 775 /var/www/bitrix && chown -R root:www-data /var/www/bitrix && \
 
 echo "Config"
 cp -f /var/www/bitrixdock/.env_template /var/www/bitrixdock/.env
+sed -i 's/SITE_PATH=.\/www/SITE_PATH=\/var\/www\/bitrix/' .env
 
 echo "Run"
 docker compose -p bitrixdock down

@@ -19,6 +19,7 @@ cd /var/www/bitrixdock
 
 echo "Config"
 cp -f .env_template .env
+sed -i 's/SITE_PATH=.\/www/SITE_PATH=\/var\/www\/bitrix/' .env
 
 echo "Run"
 docker-compose up -d
