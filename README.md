@@ -19,7 +19,7 @@ BitrixDock запускает демо Битрикса предоставляя
 
 Как альтернативный вариант - можно поднять виртуальную машину (через Vagrant, VirtualBox, VMware и тп), тестировалось на Ubuntu 18.04.
 Ваш рабочий проект должен хранится в двух местах, первое — локальная папка с проектами на хосте (открывается в IDE), второе — виртуальная машина
-(например ```/var/www/bitrix```). Проект на хосте мапится в IDE к гостевой OC.
+(например `/var/www/bitrix`). Проект на хосте мапится в IDE к гостевой OC.
 
 ## Автоматическая установка для WSL (Рекомендуем)
 ```shell
@@ -68,7 +68,7 @@ cp -f .env_template .env
 ```
 ⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose.yml
 
-По умолчанию используется nginx, php 7.4, mysql. Настройки можно изменить в файле ```.env```. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
+По умолчанию используется nginx, php 7.4, mysql. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
 
 
 ```dotenv
@@ -95,8 +95,8 @@ SITE_PATH=/var/www/bitrix        # Путь к директории Вашего
 ```shell
 docker compose -p bitrixdock up -d
 ```
-Чтобы проверить, что все сервисы запустились посмотрите список процессов ```docker ps```.
-Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 ```netstat -plnt```.
+Чтобы проверить, что все сервисы запустились посмотрите список процессов `docker ps`.
+Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 `netstat -plnt`.
 Откройте IP машины в браузере.
 
 ### Остановка
@@ -112,9 +112,9 @@ docker compose -p bitrixdock down
 ![db](https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/assets/db.png)
 
 ## Примечание
-- По умолчанию стоит папка ```/var/www/bitrix/```
-- В настройках подключения требуется указывать имя сервиса, например для подключения к базе нужно указывать "db", а не "localhost". Пример [конфига](configs/.settings.php) с подключением к mysql и memcached.
-- Для загрузки резервной копии в контейнер используйте команду: ```cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix```
+- По умолчанию стоит папка `/var/www/bitrix/`
+- Пример [конфига](configs/.settings.php) с подключением к mysql и memcached
+- Для загрузки резервной копии в контейнер используйте команду: `cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix`
 - При использовании php74 в production удалите строку с `php7.4-xdebug` из файла `php74/Dockerfile`, сам факт его установки снижает производительность Битрикса и он должен использоваться только для разработки
 - Если контейнер php-fpm выдает ошибку "failed to create new listening socket: socket(): Address family not supported by protocol", то необходимо включить поддержку IPv6 в системе. Например в Ubuntu 22.04 — закомментировать строку в конфиге GRUB "GRUB_CMDLINE_LINUX="ipv6.disable=1"
 ## Отличие от виртуальной машины Битрикс
@@ -172,11 +172,6 @@ git add .
 git commit -am "My fixes"
 git push -u origin new_branch
 ```
-7. Переходим в свой проект ```https://github.com/my_account/bitrixdock``` и жмем кнопку Compare & pull request
+7. Переходим в свой проект `https://github.com/my_account/bitrixdock` и жмем кнопку Compare & pull request
 8. Описываем какую проблему решает Пул Реквест с кратким описанием, зачем сделано изменение
 9. Вы прекрасны! ;)
-
-
-
-
-

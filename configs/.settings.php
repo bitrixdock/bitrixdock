@@ -20,7 +20,7 @@ return [
             'type' => 'memcache',
             'sid' => 'master',
             'memcache' => [
-                'host' => 'memcached',
+                'host' => 'host.docker.internal',
                 'port' => '11211'
             ],
         ],
@@ -45,7 +45,7 @@ return [
                     'ignore_silence' => false,
                     'assertion_throws_exception' => true,
                     'assertion_error_type' => 256,
-                    'log' => NULL,
+                    'log' => null,
                 ],
             'readonly' => false,
         ],
@@ -56,7 +56,7 @@ return [
                     'default' =>
                         [
                             'className' => '\\Bitrix\\Main\\DB\\MysqliConnection',
-                            'host' => 'db',
+                            'host' => 'host.docker.internal',
                             'database' => 'bitrix',
                             'login' => 'root',
                             'password' => '123',
