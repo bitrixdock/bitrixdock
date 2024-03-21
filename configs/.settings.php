@@ -10,8 +10,8 @@ return [
         [
             'value' =>
                 [
-                    'config_options' => 3600.0,
-                    'site_domain' => 3600.0,
+                    'config_options' => 3600,
+                    'site_domain' => 3600,
                 ],
             'readonly' => false,
         ],
@@ -45,7 +45,7 @@ return [
                     'ignore_silence' => false,
                     'assertion_throws_exception' => true,
                     'assertion_error_type' => 256,
-                    'log' => NULL,
+                    'log' => null,
                 ],
             'readonly' => false,
         ],
@@ -60,7 +60,7 @@ return [
                             'database' => 'bitrix',
                             'login' => 'root',
                             'password' => '123',
-                            'options' => 2.0,
+                            'options' => 2,
                         ],
                 ],
             'readonly' => true,
