@@ -15,7 +15,6 @@ RUN apt-get update \
     php8.3-opcache \
     php8.3-soap \
     php8.3-zip \
-    php-pear \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 COPY ./php.ini /etc/php/8.3/fpm/conf.d/90-php.ini
