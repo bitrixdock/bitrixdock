@@ -1,0 +1,111 @@
+name: Conditional Build Docker Images
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'percona/**'
+      - 'php/**'
+      - 'nginx/**'
+      - 'mysql/**'
+      - 'apache/**'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'percona/**'
+      - 'php/**'
+      - 'nginx/**'
+      - 'mysql/**'
+      - 'apache/**'
+
+jobs:
+  filter-paths:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: paths-changed
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            php56:
+              - 'php/php56/**'
+            php71:
+              - 'php/php71/**'
+            php73:
+              - 'php/php73/**'
+            php74:
+              - 'php/php74/**'
+            php80:
+              - 'php/php80/**'
+            php81:
+              - 'php/php81/**'
+            php82:
+              - 'php/php82/**'
+            php83:
+              - 'php/php83/**'
+            mysql:
+              - 'mysql/**'
+            percona:
+              - 'percona/**'
+            nginx:
+              - 'nginx/**'
+            apache:
+              - 'apache/**'
+      - id: set-matrix
+        run: |
+          matrix="{\"include\":["
+          if [[ "${{ steps.paths-changed.outputs.php56 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php56\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php71 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php71\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php73 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php73\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php74 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php74\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php80 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php80\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php81 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php81\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php82 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php82\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php83 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php83\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.percona }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"percona\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.mysql }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"mysql\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.nginx }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"nginx\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.apache }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"apache\"},"
+          fi
+          matrix+="]}"
+          echo "::set-output name=matrix::$matrix"
+
+  build:
+    needs: filter-paths
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.filter-paths.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build Docker image
+        run: |
+          docker build ./${{ matrix.directory }} -t bitrixdock/${{ matrix.directory }}:latest
