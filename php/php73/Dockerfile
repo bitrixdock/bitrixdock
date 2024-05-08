@@ -1,5 +1,7 @@
 FROM phpdockerio/php73-fpm:latest
 
+LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
+
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
     php7.3-gd \

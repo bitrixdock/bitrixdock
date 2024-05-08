@@ -1,5 +1,7 @@
 FROM phpdockerio/php:8.2-fpm
 
+LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
+
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
     php8.2-gd \
