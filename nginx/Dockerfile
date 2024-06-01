@@ -1,4 +1,4 @@
-FROM nginx:1.20.2
+FROM nginx:1.27.0
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 
