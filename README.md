@@ -32,6 +32,11 @@ BitrixDock запускает демо Битрикса предоставляя
 curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh?$(date +%s) -o install.sh && chmod +x install.sh && sh install.sh
 ```
 
+Для разворачивания на Windows машине
+```shell
+curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.bat?%time:~-5,2%%time:~-2,2%%date:~-10,2%%date:~-7,2%%date:~-4,4% -o install.bat && install.bat
+```
+
 ## Ручная установка
 ### Выполните настройку окружения
 
