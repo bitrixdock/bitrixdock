@@ -13,15 +13,3 @@ updates:
       "GitHub Actions updates":
         patterns:
           - "*"
-  - package-ecosystem: "docker"
-    directory: "/nginx"
-    schedule:
-      interval: "monthly"
-  - package-ecosystem: "docker"
-    directory: "/percona"
-    schedule:
-      interval: "monthly"
-  - package-ecosystem: "docker"
-    directory: "/mysql"
-    schedule:
-      interval: "monthly"
