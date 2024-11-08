@@ -42,21 +42,6 @@ cp -f .env_template .env
 ```
 ⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose.yml
 
-По умолчанию используется nginx, php 7.4, mysql. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
-
-```dotenv
-COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
-PHP_VERSION=php74                # Версия php
-WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
-DB_SERVER_TYPE=mysql             # Сервер базы данных mysql/percona
-MYSQL_DATABASE=bitrix            # Имя базы данных
-MYSQL_USER=bitrix                # Пользователь базы данных
-MYSQL_PASSWORD=123               # Пароль для доступа к базе данных
-MYSQL_ROOT_PASSWORD=123          # Пароль для пользователя root от базы данных
-INTERFACE=0.0.0.0                # На данный интерфейс будут проксироваться порты
-SITE_PATH=./www                  # Путь к директории Вашего сайта
-```
-
 Если у вас всё получилось, будем благодарны за звёздочку :)
 Ошибки ждём в [issue](https://github.com/bitrixdock/bitrixdock/issues)
 Приятной работы!
