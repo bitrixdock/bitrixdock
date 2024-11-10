@@ -63,8 +63,6 @@ services:
         container_name: memcached
         volumes_from:
             - source
-        ports:
-            - '${INTERFACE}:11211:11211'
         networks:
             - bitrixdock
         environment:
