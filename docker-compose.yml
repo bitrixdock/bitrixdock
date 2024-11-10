@@ -2,7 +2,6 @@
 services:
     php:
         build: ./php/${PHP_VERSION}
-        container_name: php
         volumes_from:
             - source
         links:
@@ -18,7 +17,6 @@ services:
 
     web_server:
         build: ./${WEB_SERVER_TYPE}
-        container_name: web_server
         depends_on:
             - source
         volumes_from:
@@ -38,7 +36,6 @@ services:
 
     db:
         build: ./${DB_SERVER_TYPE}
-        container_name: db
         volumes:
             - ./${DB_SERVER_TYPE}/init:/docker-entrypoint-initdb.d
         volumes_from:
@@ -60,7 +57,6 @@ services:
 
     memcached:
         image: memcached:latest
-        container_name: memcached
         volumes_from:
             - source
         networks:
@@ -73,7 +69,6 @@ services:
 
     adminer:
         image: dockette/adminer:full
-        container_name: adminer
         links:
             - db:db
         ports:
@@ -89,7 +84,6 @@ services:
 
     source:
         image: alpine:latest
-        container_name: source
         volumes:
             - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
             - ./logs/php:/var/log/php
