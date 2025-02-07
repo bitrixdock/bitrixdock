@@ -19,6 +19,7 @@ services:
         build: ./${WEB_SERVER_TYPE}
         depends_on:
             - source
+            - mkcert
         volumes_from:
             - source
         ports:
@@ -82,6 +83,13 @@ services:
         networks:
             - bitrixdock
 
+    mkcert:
+        build: ./mkcert
+        volumes_from:
+            - source
+        depends_on:
+            - source
+        command: ["sh", "/entrypoint.sh"]
     source:
         image: alpine:latest
         volumes:
@@ -93,6 +101,7 @@ services:
             - cache:/var/lib/memcached
             - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
+            - ./cert:/etc/nginx/certs
         networks:
             - bitrixdock
 

@@ -3,3 +3,4 @@
 .fleet
 logs
 .env
+cert/*.pem
