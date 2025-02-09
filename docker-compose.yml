@@ -14,11 +14,15 @@ services:
         networks:
             - bitrixdock
         restart: unless-stopped
+        extra_hosts:
+            - "bitrix.local:172.18.0.9"
 
     web_server:
         build: ./${WEB_SERVER_TYPE}
         depends_on:
             - source
+            - push-server-sub
+            - push-server-pub
         volumes_from:
             - source
         ports:
@@ -27,7 +31,8 @@ services:
         links:
             - php
         networks:
-            - bitrixdock
+            bitrixdock:
+                ipv4_address: 172.18.0.9
         environment:
             TZ: Europe/Moscow
         stdin_open: true
@@ -82,6 +87,37 @@ services:
         networks:
             - bitrixdock
 
+    push-server-sub:
+        image: ikarpovich/bitrix-push-server
+        networks:
+            - bitrixdock
+        environment:
+            - REDIS_HOST=redis
+            - LISTEN_HOSTNAME=0.0.0.0
+            - LISTEN_PORT=8010
+            - SECURITY_KEY=testtesttest
+            - MODE=sub
+        depends_on:
+            - redis
+
+    push-server-pub:
+        image: ikarpovich/bitrix-push-server
+        networks:
+            - bitrixdock
+        environment:
+            - REDIS_HOST=redis
+            - LISTEN_HOSTNAME=0.0.0.0
+            - LISTEN_PORT=8010
+            - SECURITY_KEY=testtesttest
+            - MODE=pub
+        depends_on:
+            - redis
+
+    redis:
+        image: redis
+        networks:
+            - bitrixdock
+
     source:
         image: alpine:latest
         volumes:
@@ -93,6 +129,7 @@ services:
             - cache:/var/lib/memcached
             - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
+            - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
         networks:
             - bitrixdock
 
@@ -104,3 +141,6 @@ volumes:
 
 networks:
     bitrixdock:
+        ipam:
+            config:
+                - subnet: 172.18.0.0/24
