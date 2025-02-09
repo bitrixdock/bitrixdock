@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CERT_KEY="/etc/nginx/certs/bitrix.loc-key.pem"
-CERT_FILE="/etc/nginx/certs/bitrix.loc-cert.pem"
+CERT_KEY="/etc/nginx/certs/bitrix.local-key.pem"
+CERT_FILE="/etc/nginx/certs/bitrix.local-cert.pem"
 
 if [ ! -f "$CERT_KEY" ] || [ ! -f "$CERT_FILE" ]; then
     mkcert -install

@@ -76,10 +76,10 @@ docker compose -p bitrixdock up -d
 
 1. Прописать кастомный домен в файле `/etc/hosts`(Linux/MacOS) или `C:\Windows\System32\drivers\etc\hosts`(Windows):
    ```hosts
-   127.0.0.1   bitrix.loc
+   127.0.0.1   bitrix.local
    ```
    Сайт будет доступен по адресу:
-    - `http://bitrix.loc`
+    - `http://bitrix.local`
 2. Воспользоваться wildcard DNS.
    Например, если ваш IP-адрес — `1.2.3.4`, то можно использовать:
     - `http://1.2.3.4.nip.io`

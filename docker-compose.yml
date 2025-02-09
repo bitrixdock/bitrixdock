@@ -90,6 +90,7 @@ services:
         depends_on:
             - source
         command: ["sh", "/entrypoint.sh"]
+
     source:
         image: alpine:latest
         volumes:
