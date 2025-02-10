@@ -129,7 +129,6 @@ services:
             - cache:/var/lib/memcached
             - ${SITE_PATH}:/var/www/bitrix
             - /etc/localtime:/etc/localtime/:ro
-            - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
         networks:
             - bitrixdock
 
