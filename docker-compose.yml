@@ -6,9 +6,6 @@ services:
             - ${SITE_PATH}:/var/www/bitrix
             - ./logs/php:/var/log/php
             - /etc/localtime:/etc/localtime/:ro
-        links:
-            - db
-            - memcached
         environment:
             TZ: Europe/Moscow
         networks:
@@ -24,8 +21,6 @@ services:
         ports:
             - '${INTERFACE}:80:80'
             - '${INTERFACE}:443:443'
-        links:
-            - php
         networks:
             - bitrixdock
         environment:
@@ -61,8 +56,6 @@ services:
 
     adminer:
         image: dockette/adminer:full
-        links:
-            - db:db
         ports:
             - '${INTERFACE}:8080:80'
         environment:
