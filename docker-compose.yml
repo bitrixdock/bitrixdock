@@ -38,7 +38,7 @@ services:
             - ./${DB_SERVER_TYPE}/init:/docker-entrypoint-initdb.d
             - ./logs/db:/var/log/mysql
             - /etc/localtime:/etc/localtime/:ro
-            - db2:/var/lib/mysql
+            - db:/var/lib/mysql
         ports:
             - '${INTERFACE}:3306:3306'
         environment:
