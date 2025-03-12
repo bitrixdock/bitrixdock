@@ -47,6 +47,8 @@ jobs:
               - 'php/php82/**'
             php83:
               - 'php/php83/**'
+            php84:
+              - 'php/php84/**'
             mysql:
               - 'mysql/**'
             percona:
@@ -81,6 +83,9 @@ jobs:
           fi
           if [[ "${{ steps.paths-changed.outputs.php83 }}" == 'true' ]]; then
             matrix+="{\"directory\":\"php/php83\"},"
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php84 }}" == 'true' ]]; then
+            matrix+="{\"directory\":\"php/php84\"},"
           fi
           if [[ "${{ steps.paths-changed.outputs.percona }}" == 'true' ]]; then
             matrix+="{\"directory\":\"percona\"},"
