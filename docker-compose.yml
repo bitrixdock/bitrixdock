@@ -2,44 +2,38 @@
 services:
     php:
         build: ./php/${PHP_VERSION}
-        volumes_from:
-            - source
-        links:
-            - db
-            - memcached
+        volumes:
+            - ${SITE_PATH}:/var/www/bitrix
+            - ./logs/php:/var/log/php
+            - /etc/localtime:/etc/localtime/:ro
         environment:
             TZ: Europe/Moscow
-        stdin_open: true
-        tty: true
         networks:
             - bitrixdock
         restart: unless-stopped
 
     web_server:
         build: ./${WEB_SERVER_TYPE}
-        depends_on:
-            - source
-        volumes_from:
-            - source
+        volumes:
+            - ${SITE_PATH}:/var/www/bitrix
+            - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
+            - /etc/localtime:/etc/localtime/:ro
         ports:
             - '${INTERFACE}:80:80'
             - '${INTERFACE}:443:443'
-        links:
-            - php
         networks:
             - bitrixdock
         environment:
             TZ: Europe/Moscow
-        stdin_open: true
-        tty: true
         restart: unless-stopped
 
     db:
         build: ./${DB_SERVER_TYPE}
         volumes:
             - ./${DB_SERVER_TYPE}/init:/docker-entrypoint-initdb.d
-        volumes_from:
-            - source
+            - ./logs/db:/var/log/mysql
+            - /etc/localtime:/etc/localtime/:ro
+            - db:/var/lib/mysql
         ports:
             - '${INTERFACE}:3306:3306'
         environment:
@@ -48,59 +42,36 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             TZ: Europe/Moscow
-        command: mysqld --user=root --sql-mode=""
         networks:
             - bitrixdock
-        stdin_open: true
-        tty: true
         restart: unless-stopped
 
     memcached:
         image: memcached:latest
-        volumes_from:
-            - source
         networks:
             - bitrixdock
         environment:
             TZ: Europe/Moscow
-        stdin_open: true
-        tty: true
         restart: unless-stopped
 
     adminer:
         image: dockette/adminer:full
-        links:
-            - db:db
         ports:
             - '${INTERFACE}:8080:80'
         environment:
             UPLOAD: 1024M # upload_max_filesize, post_max_size
             TZ: Europe/Moscow
         restart: unless-stopped
-        stdin_open: true
-        tty: true
-        networks:
-            - bitrixdock
-
-    source:
-        image: alpine:latest
-        volumes:
-            - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
-            - ./logs/php:/var/log/php
-            - ./logs/db:/var/log/mysql
-            - ./logs/memcached:/var/log/memcached
-            - db:/var/lib/mysql
-            - cache:/var/lib/memcached
-            - ${SITE_PATH}:/var/www/bitrix
-            - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrixdock
 
 volumes:
     db:
         driver: local
-    cache:
-        driver: local
+        driver_opts:
+            type: none
+            device: /var/lib/docker/volumes/${COMPOSE_PROJECT_NAME}_db/_data
+            o: bind
 
 networks:
     bitrixdock:
