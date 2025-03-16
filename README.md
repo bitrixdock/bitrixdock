@@ -70,6 +70,16 @@ docker compose -p bitrixdock up -d
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 `netstat -plnt`.
 Откройте IP машины в браузере.
 
+### Запуск с опциональными сервисами
+В bitrixdock есть профили для запуска опциональных сервисов:
+- `admin` - для запуска сервиса Adminer (веб-интерфейс для управления базами данных)
+- `push` - для запуска push-сервера Битрикс и Redis
+
+Для запуска с профилями:
+```shell
+docker compose -p bitrixdock --profile admin --profile push up -d
+```
+
 ### Остановка
 ```shell
 docker compose -p bitrixdock stop
