@@ -110,10 +110,6 @@ services:
 volumes:
     db:
         driver: local
-        driver_opts:
-            type: none
-            device: /var/lib/docker/volumes/${COMPOSE_PROJECT_NAME}_db/_data
-            o: bind
 
 networks:
     bitrixdock:
