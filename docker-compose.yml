@@ -29,6 +29,9 @@ services:
         environment:
             TZ: Europe/Moscow
         restart: unless-stopped
+        extra_hosts:
+            - "push-server-sub:172.18.0.10"
+            - "push-server-pub:172.18.0.11"
 
     db:
         build: ./${DB_SERVER_TYPE}
@@ -73,7 +76,8 @@ services:
     push-server-sub:
         image: ikarpovich/bitrix-push-server
         networks:
-            - bitrixdock
+            bitrixdock:
+                ipv4_address: 172.18.0.10
         environment:
             - REDIS_HOST=redis
             - LISTEN_HOSTNAME=0.0.0.0
@@ -88,7 +92,8 @@ services:
     push-server-pub:
         image: ikarpovich/bitrix-push-server
         networks:
-            - bitrixdock
+            bitrixdock:
+                ipv4_address: 172.18.0.11
         environment:
             - REDIS_HOST=redis
             - LISTEN_HOSTNAME=0.0.0.0
