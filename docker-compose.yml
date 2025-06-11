@@ -27,7 +27,9 @@ services:
         tty: true
         networks:
             bitrixdock:
-                ipv4_address: 172.18.0.4
+                ipv4_address: 172.18.0.12
+        profiles:
+            - workspace
 
     web_server:
         build: ./${WEB_SERVER_TYPE}
