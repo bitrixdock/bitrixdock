@@ -14,7 +14,7 @@ services:
         extra_hosts:
             - "bitrix.local:172.18.0.9"
 
-    php-nodejs-workspace:
+    php-workspace:
         build: 
             context: ./php-workspace/
             args:

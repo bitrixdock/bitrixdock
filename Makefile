@@ -8,6 +8,9 @@ help: ## This help
 console-php: ## Run bash (PHP) from "www-data"
 	docker compose exec -u www-data php bash
 
+console-php-workspace: ## Run bash (PHP) from "www-data"
+	docker compose exec -u www-data php-workspace bash
+
 shell: console-php
 
 console-php-root: ## Run bash (PHP) from "root"
