@@ -7,7 +7,11 @@ RUN apt-get update \
     && apt-get -y --no-install-recommends install \
     php$PHP_WORKSPACE_VERSION-mbstring \
     php$PHP_WORKSPACE_VERSION-zip \
-    git ssh nano vim \
+    git \
+    iputils-ping \
+    nano \
+    ssh \    
+    vim \    
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 RUN usermod -u 1000 www-data
