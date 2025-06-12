@@ -7,13 +7,14 @@ RUN apt-get update \
     && apt-get -y --no-install-recommends install \
     php$PHP_WORKSPACE_VERSION-mbstring \
     php$PHP_WORKSPACE_VERSION-zip \
+    git ssh nano vim \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 RUN usermod -u 1000 www-data
 
 WORKDIR "/var/www/bitrix"
 
-# needle for vscode-server
+# necessary for vscode-server
 RUN chown www-data:www-data /var/www
 
 # install nvm nodejs npm bitrix/cli
@@ -29,8 +30,5 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN npm install --global @bitrix/cli
 USER root
 
-# install git ssh nano vim
-RUN apt-get update && apt-get -y --no-install-recommends install git ssh nano vim
-
-# needle for vscode-server
+# necessary for vscode-server
 ENV SHELL /bin/bash
