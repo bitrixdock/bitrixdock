@@ -16,7 +16,7 @@ services:
 
     workspace:
         build: 
-            context: ./php-workspace/
+            context: ./workspace/
             args:
                 NODE_VERSION: ${NODE_VERSION:-22.16.0}
                 PHP_WORKSPACE_VERSION: ${PHP_WORKSPACE_VERSION}
