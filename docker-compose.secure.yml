@@ -1,0 +1,149 @@
+---
+services:
+    php:
+        build: 
+            context: .
+            dockerfile: ./php/${PHP_VERSION}/Dockerfile.secure
+            args:
+                SECURITY_HARDENING: ${SECURITY_HARDENING:-false}
+                BLOCK_CRON_ACCESS: ${BLOCK_CRON_ACCESS:-true}
+                DEVELOPMENT_MODE: ${DEVELOPMENT_MODE:-true}
+        volumes:
+            - ${SITE_PATH}:/var/www/bitrix
+            - ./logs/php:/var/log/php
+            - /etc/localtime:/etc/localtime/:ro
+        environment:
+            TZ: Europe/Moscow
+            SECURITY_HARDENING: ${SECURITY_HARDENING:-false}
+            DISABLE_DANGEROUS_FUNCTIONS: ${DISABLE_DANGEROUS_FUNCTIONS:-true}
+            DEVELOPMENT_MODE: ${DEVELOPMENT_MODE:-true}
+        networks:
+            - bitrixdock
+        restart: unless-stopped
+        extra_hosts:
+            - "bitrix.local:172.18.0.9"
+
+    web_server:
+        build: ./${WEB_SERVER_TYPE}
+        volumes:
+            - ${SITE_PATH}:/var/www/bitrix
+            - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
+            - /etc/localtime:/etc/localtime/:ro
+        ports:
+            - '${INTERFACE}:80:80'
+            - '${INTERFACE}:443:443'
+        networks:
+            bitrixdock:
+                ipv4_address: 172.18.0.9
+        environment:
+            TZ: Europe/Moscow
+        restart: unless-stopped
+        extra_hosts:
+            - "push-server-sub:172.18.0.10"
+            - "push-server-pub:172.18.0.11"
+
+    cron:
+        build: ./cron
+        volumes:
+            - ${SITE_PATH}:/var/www/bitrix
+            - ./logs/cron:/var/log/cron
+            - /etc/localtime:/etc/localtime/:ro
+        environment:
+            TZ: Europe/Moscow
+        networks:
+            - bitrixdock
+        restart: unless-stopped
+        depends_on:
+            - php
+            - db
+        profiles:
+            - cron
+
+    db:
+        build: ./${DB_SERVER_TYPE}
+        volumes:
+            - ./${DB_SERVER_TYPE}/init:/docker-entrypoint-initdb.d
+            - ./logs/db:/var/log/mysql
+            - /etc/localtime:/etc/localtime/:ro
+            - db:/var/lib/mysql
+        ports:
+            - '${INTERFACE}:3306:3306'
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            TZ: Europe/Moscow
+        networks:
+            - bitrixdock
+        restart: unless-stopped
+
+    memcached:
+        image: memcached:latest
+        networks:
+            - bitrixdock
+        environment:
+            TZ: Europe/Moscow
+        restart: unless-stopped
+
+    adminer:
+        image: dockette/adminer:full
+        ports:
+            - '${INTERFACE}:8080:80'
+        environment:
+            UPLOAD: 1024M # upload_max_filesize, post_max_size
+            TZ: Europe/Moscow
+        restart: unless-stopped
+        networks:
+            - bitrixdock
+        profiles:
+            - admin
+
+    push-server-sub:
+        image: ikarpovich/bitrix-push-server
+        networks:
+            bitrixdock:
+                ipv4_address: 172.18.0.10
+        environment:
+            - REDIS_HOST=redis
+            - LISTEN_HOSTNAME=0.0.0.0
+            - LISTEN_PORT=8010
+            - SECURITY_KEY=testtesttest
+            - MODE=sub
+        depends_on:
+            - redis
+        profiles:
+            - push
+
+    push-server-pub:
+        image: ikarpovich/bitrix-push-server
+        networks:
+            bitrixdock:
+                ipv4_address: 172.18.0.11
+        environment:
+            - REDIS_HOST=redis
+            - LISTEN_HOSTNAME=0.0.0.0
+            - LISTEN_PORT=8010
+            - SECURITY_KEY=testtesttest
+            - MODE=pub
+        depends_on:
+            - redis
+        profiles:
+            - push
+
+    redis:
+        image: redis
+        networks:
+            - bitrixdock
+        profiles:
+            - push
+
+volumes:
+    db:
+        driver: local
+
+networks:
+    bitrixdock:
+        ipam:
+            config:
+                - subnet: 172.18.0.0/24

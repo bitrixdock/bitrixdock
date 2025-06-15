@@ -1,0 +1,50 @@
+FROM phpdockerio/php:7.4-fpm
+
+LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
+
+# Аргументы сборки для условной безопасности
+ARG SECURITY_HARDENING=false
+ARG BLOCK_CRON_ACCESS=true
+ARG DEVELOPMENT_MODE=true
+
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install \
+    php7.4-gd \
+    php7.4-imagick \
+    php7.4-intl \
+    php7.4-interbase \
+    php7.4-mbstring \
+    php7.4-mcrypt \
+    php7.4-memcache \
+    php7.4-memcached \
+    php7.4-mysql \
+    php7.4-opcache \
+    php7.4-soap \
+    php7.4-zip \
+    && if [ "$DEVELOPMENT_MODE" = "true" ]; then \
+        apt-get -y --no-install-recommends install php7.4-xdebug; \
+    fi \
+    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+# Копирование базовой конфигурации PHP
+COPY ./php.ini /etc/php/7.4/fpm/conf.d/90-php.ini
+COPY ./php.ini /etc/php/7.4/cli/conf.d/90-php.ini
+
+# Условное копирование конфигурации безопасности
+COPY ./php-security.ini /tmp/php-security.ini
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Блокировать доступ к cron для www-data если включено
+RUN if [ "$BLOCK_CRON_ACCESS" = "true" ]; then \
+        echo "www-data" > /etc/cron.deny && chmod 644 /etc/cron.deny; \
+    fi
+
+RUN usermod -u 1000 www-data
+
+WORKDIR "/var/www/bitrix"
+
+EXPOSE 9000
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm7.4"]
