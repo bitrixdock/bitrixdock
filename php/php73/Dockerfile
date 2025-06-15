@@ -26,6 +26,9 @@ COPY ./php.ini /etc/php/7.3/cli/conf.d/90-php.ini
 
 RUN usermod -u 1000 www-data
 
+HEALTHCHECK --interval=30s --timeout=10s --retries=10 --start-period=10s \
+    CMD php --ini || exit 1
+
 WORKDIR "/var/www/bitrix"
 
 EXPOSE 9000
