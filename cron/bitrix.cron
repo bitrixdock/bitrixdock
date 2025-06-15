@@ -2,10 +2,15 @@
 # Запуск от имени пользователя www-data для соответствия правам доступа к файлам
 
 # Основной агент Битрикс (каждую минуту)
-* * * * * www-data /usr/bin/php -f /var/www/bitrix/bitrix/php_interface/cron_events.php >> /var/log/cron/bitrix.log 2>&1
+* * * * * www-data /usr/bin/php -f /var/www/bitrix/bitrix/modules/main/tools/cron_events.php >> /var/log/cron/bitrix.log 2>&1
 
-# Опционально: Обработка очереди почты (каждые 5 минут)
-# */5 * * * * www-data /usr/bin/php -f /var/www/bitrix/bitrix/php_interface/cron_mail.php >> /var/log/cron/mail.log 2>&1
+# Примеры дополнительных заданий (создайте эти скрипты при необходимости):
 
-# Опционально: Переиндексация поиска (ежедневно в 3 часа ночи)
-# 0 3 * * * www-data /usr/bin/php -f /var/www/bitrix/bitrix/php_interface/cron_reindex.php >> /var/log/cron/reindex.log 2>&1
+# Обработка очереди почты (каждые 5 минут)
+# */5 * * * * www-data /usr/bin/php -f /var/www/bitrix/local/php_interface/cron_mail.php >> /var/log/cron/mail.log 2>&1
+
+# Переиндексация поиска (ежедневно в 3 часа ночи)
+# 0 3 * * * www-data /usr/bin/php -f /var/www/bitrix/local/php_interface/cron_reindex.php >> /var/log/cron/reindex.log 2>&1
+
+# Альтернативно используйте стандартные команды Битрикс CLI:
+# */5 * * * * www-data /usr/bin/php /var/www/bitrix/bitrix/modules/main/tools/backup.php >> /var/log/cron/backup.log 2>&1

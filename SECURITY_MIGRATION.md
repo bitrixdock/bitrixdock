@@ -63,7 +63,7 @@
 | `SECURITY_HARDENING` | `false` | Главный переключатель функций безопасности |
 | `DISABLE_DANGEROUS_FUNCTIONS` | `true` | Отключить exec, system и т.д. (при включенной защите) |
 | `BLOCK_CRON_ACCESS` | `true` | Добавить www-data в /etc/cron.deny |
-| `DEVELOPMENT_MODE` | `true` | Включить функции разработки (xdebug, отображение ошибок) |
+| `DEVELOPMENT_MODE` | `true` | Режим разработки: отображение ошибок PHP (при false - настройки production) |
 | `ENABLE_CRON` | `false` | Добавить контейнер cron в стек |
 
 ### Поэтапный путь миграции
