@@ -1,0 +1,50 @@
+FROM phpdockerio/php:8.2-fpm
+
+LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
+
+# Аргументы сборки для условной безопасности
+ARG SECURITY_HARDENING=false
+ARG BLOCK_CRON_ACCESS=true
+ARG DEVELOPMENT_MODE=true
+
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install \
+    php8.2-gd \
+    php8.2-imagick \
+    php8.2-intl \
+    php8.2-interbase \
+    php8.2-mbstring \
+    php8.2-mcrypt \
+    php8.2-memcache \
+    php8.2-memcached \
+    php8.2-mysql \
+    php8.2-opcache \
+    php8.2-soap \
+    php8.2-zip \
+    && if [ "$DEVELOPMENT_MODE" = "true" ]; then \
+        apt-get -y --no-install-recommends install php8.2-xdebug; \
+    fi \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+# Копирование базовой конфигурации PHP
+COPY ./php.ini /etc/php/8.2/fpm/conf.d/90-php.ini
+COPY ./php.ini /etc/php/8.2/cli/conf.d/90-php.ini
+
+# Условное копирование конфигурации безопасности
+COPY ./php-security.ini /tmp/php-security.ini
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Блокировать доступ к cron для www-data если включено
+RUN if [ "$BLOCK_CRON_ACCESS" = "true" ]; then \
+        echo "www-data" > /etc/cron.deny && chmod 644 /etc/cron.deny; \
+    fi
+
+RUN usermod -u 1000 www-data
+
+WORKDIR "/var/www/bitrix"
+
+EXPOSE 9000
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm8.2"]

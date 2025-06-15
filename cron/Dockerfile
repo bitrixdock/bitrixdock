@@ -1,3 +1,4 @@
+ARG PHP_VERSION=php74
 FROM phpdockerio/php:7.4-fpm
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
@@ -7,10 +8,12 @@ RUN apt-get update && apt-get install -y cron \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Копировать конфигурацию PHP (использовать из php контейнера)
-COPY ./php/php74/php.ini /etc/php/7.4/cli/conf.d/90-php.ini
+COPY ./php/${PHP_VERSION}/php.ini /tmp/php-base.ini
 
 # Копировать конфигурацию безопасности для cron
-COPY ./cron/php-cron-security.ini /etc/php/7.4/cli/conf.d/99-security.ini
+COPY ./cron/php-cron-security.ini /tmp/php-cron-security.ini
+COPY ./cron/configure-php.sh /usr/local/bin/configure-php.sh
+RUN chmod +x /usr/local/bin/configure-php.sh
 
 # Копировать crontab
 COPY ./cron/bitrix.cron /etc/cron.d/bitrix

@@ -43,7 +43,11 @@ services:
             - "push-server-pub:172.18.0.11"
 
     cron:
-        build: ./cron
+        build: 
+            context: .
+            dockerfile: ./cron/Dockerfile
+            args:
+                PHP_VERSION: ${PHP_VERSION:-php74}
         volumes:
             - ${SITE_PATH}:/var/www/bitrix
             - ./logs/cron:/var/log/cron
