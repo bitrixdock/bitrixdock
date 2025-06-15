@@ -28,12 +28,7 @@
 
 Если вам нужна функциональность cron:
 
-1. Установите в `.env`:
-   ```bash
-   ENABLE_CRON=true
-   ```
-
-2. Используйте защищенный docker-compose файл:
+1. Используйте защищенный docker-compose файл с профилем cron:
    ```bash
    docker-compose -f docker-compose.secure.yml --profile cron up -d
    ```
@@ -46,7 +41,6 @@
    DISABLE_DANGEROUS_FUNCTIONS=true
    BLOCK_CRON_ACCESS=true
    DEVELOPMENT_MODE=false
-   ENABLE_CRON=true  # Если используете cron
    ```
 
 2. Разверните с использованием защищенной конфигурации:
@@ -64,7 +58,6 @@
 | `DISABLE_DANGEROUS_FUNCTIONS` | `true` | Отключить exec, system и т.д. (при включенной защите) |
 | `BLOCK_CRON_ACCESS` | `true` | Добавить www-data в /etc/cron.deny |
 | `DEVELOPMENT_MODE` | `true` | Режим разработки: отображение ошибок PHP (при false - настройки production) |
-| `ENABLE_CRON` | `false` | Добавить контейнер cron в стек |
 
 ### Поэтапный путь миграции
 
@@ -86,7 +79,6 @@
    SECURITY_HARDENING=true
    DEVELOPMENT_MODE=false
    DISABLE_DANGEROUS_FUNCTIONS=true
-   ENABLE_CRON=true
    ```
 
 ## Решение проблем
