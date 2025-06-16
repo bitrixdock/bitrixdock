@@ -47,6 +47,8 @@ cp -f .env_template .env
 ```dotenv
 COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
 PHP_VERSION=php74                # Версия php
+PHP_WORKSPACE_VERSION=7.4        # Версия PHP для workspace контейнера
+NODE_VERSION=22.16.0             # Версия Node.js для workspace контейнера
 WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
 DB_SERVER_TYPE=mysql             # Сервер базы данных mysql/percona
 MYSQL_DATABASE=bitrix            # Имя базы данных
@@ -74,10 +76,16 @@ docker compose -p bitrixdock up -d
 В bitrixdock есть профили для запуска опциональных сервисов:
 - `admin` - для запуска сервиса Adminer (веб-интерфейс для управления базами данных)
 - `push` - для запуска push-сервера Битрикс и Redis
+- `workspace` - для запуска workspace контейнера с инструментами разработки
 
 Для запуска с профилями:
 ```shell
 docker compose -p bitrixdock --profile admin --profile push up -d
+```
+
+Для запуска с workspace:
+```shell
+docker compose -p bitrixdock --profile workspace up -d
 ```
 
 ### Остановка
@@ -89,6 +97,36 @@ docker compose -p bitrixdock stop
 ```shell
 docker compose -p bitrixdock down
 ```
+## Workspace контейнер
+Workspace - это контейнер для разработки, который включает в себя:
+- PHP CLI с расширениями mbstring и zip
+- Node.js (версия задается в .env через NODE_VERSION)
+- npm и @bitrix/cli (Bitrix CLI инструмент)
+- Git, SSH, nano, vim для удобной работы
+- Поддержка VS Code Server для удаленной разработки
+- Настроенный xdebug для отладки (слушает на 172.18.0.12)
+- Монтирование SSH ключей из домашней директории
+
+### Использование workspace
+Запустите контейнер с профилем workspace:
+```shell
+docker compose -p bitrixdock --profile workspace up -d
+```
+
+Подключитесь к контейнеру:
+```shell
+docker compose exec -u www-data workspace bash
+# или используйте команду из Makefile
+make console-workspace
+```
+
+Внутри контейнера доступны:
+- `php` - PHP CLI с нужными расширениями
+- `composer` - менеджер пакетов PHP
+- `node`, `npm` - для работы с JavaScript
+- `bitrix` - CLI инструмент Битрикс
+- `git` - для работы с репозиторием
+
 ## Как заполнять подключение к БД
 ![db](https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/assets/db.png)
 
