@@ -6,6 +6,8 @@ LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
     php$PHP_WORKSPACE_VERSION-mbstring \
+    php$PHP_WORKSPACE_VERSION-memcache \
+    php$PHP_WORKSPACE_VERSION-mysql \
     php$PHP_WORKSPACE_VERSION-zip \
     git \
     iputils-ping \
@@ -35,6 +37,8 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # install nodejs tools
 RUN npm install --global npm yarn pnpm@latest-10 @bitrix/cli
+
+COPY ./php.ini /etc/php/8.4/cli/conf.d/90-custom.ini
 
 # necessary for vscode-server
 ENV SHELL /bin/bash
