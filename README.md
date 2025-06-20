@@ -98,14 +98,7 @@ docker compose -p bitrixdock stop
 docker compose -p bitrixdock down
 ```
 ## Workspace контейнер
-Workspace - это контейнер для разработки, который включает в себя:
-- PHP CLI с расширениями mbstring и zip
-- Node.js (версия задается в .env через NODE_VERSION)
-- npm и @bitrix/cli (Bitrix CLI инструмент)
-- Git, SSH, nano, vim для удобной работы
-- Поддержка VS Code Server для удаленной разработки
-- Настроенный xdebug для отладки (слушает на 172.18.0.12)
-- Монтирование SSH ключей из домашней директории
+Workspace — это готовый к работе контейнер с инструментами для разработки и отладки
 
 ### Использование workspace
 Запустите контейнер с профилем workspace:
@@ -123,7 +116,7 @@ make console-workspace
 Внутри контейнера доступны:
 - `php` - PHP CLI с нужными расширениями
 - `composer` - менеджер пакетов PHP
-- `node`, `npm` - для работы с JavaScript
+- `node`, `npm`, `yarn`, `pnpm` - для работы с JavaScript
 - `bitrix` - CLI инструмент Битрикс
 - `git` - для работы с репозиторием
 
