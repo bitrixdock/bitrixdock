@@ -17,7 +17,8 @@ RUN apt-get update \
     vim \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-RUN userdel -r ubuntu && usermod -u 1000 www-data
+RUN id ubuntu &>/dev/null && userdel -r ubuntu || true
+RUN usermod -u 1000 www-data
 
 WORKDIR "/var/www/bitrix"
 
