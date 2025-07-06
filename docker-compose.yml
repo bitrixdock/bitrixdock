@@ -15,7 +15,7 @@ services:
             - "bitrix.local:172.18.0.9"
 
     workspace:
-        build: 
+        build:
             context: ./workspace/
             args:
                 NODE_VERSION: ${NODE_VERSION:-22.16.0}
@@ -28,6 +28,7 @@ services:
         networks:
             bitrixdock:
                 ipv4_address: 172.18.0.12
+        restart: unless-stopped
         profiles:
             - workspace
 
