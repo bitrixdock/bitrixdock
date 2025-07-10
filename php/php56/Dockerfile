@@ -7,6 +7,8 @@ COPY ./php.ini /etc/php5/cli/conf.d/90-php.ini
 
 RUN usermod -u 1000 www-data
 
+RUN echo "www-data" > /etc/cron.deny && chmod 644 /etc/cron.deny
+
 WORKDIR "/var/www/bitrix"
 
 EXPOSE 9000
