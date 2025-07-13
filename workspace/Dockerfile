@@ -9,6 +9,8 @@ RUN apt-get update \
     php$PHP_WORKSPACE_VERSION-memcache \
     php$PHP_WORKSPACE_VERSION-mysql \
     php$PHP_WORKSPACE_VERSION-zip \
+    php$PHP_WORKSPACE_VERSION-tokenizer \
+    php$PHP_WORKSPACE_VERSION-xml \
     git \
     iputils-ping \
     mc \
