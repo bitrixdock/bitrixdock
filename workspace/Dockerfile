@@ -45,4 +45,4 @@ RUN npm install --global npm yarn pnpm@latest-10 @bitrix/cli
 COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 
 # necessary for vscode-server
-ENV SHELL /bin/bash
+ENV SHELL /usr/bin/zsh
