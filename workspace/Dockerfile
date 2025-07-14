@@ -17,6 +17,7 @@ RUN apt-get update \
     nano \
     ssh \
     vim \
+    zsh \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 RUN id ubuntu &>/dev/null && userdel -r ubuntu || true
