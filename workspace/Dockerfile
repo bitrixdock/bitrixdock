@@ -42,7 +42,7 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 # install nodejs tools
 RUN npm install --global npm yarn pnpm@latest-10 @bitrix/cli
 
-COPY ./php.ini /etc/php/8.4/cli/conf.d/90-custom.ini
+COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 
 # necessary for vscode-server
 ENV SHELL /bin/bash
