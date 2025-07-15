@@ -47,3 +47,12 @@ COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 
 # necessary for vscode-server
 ENV SHELL /usr/bin/zsh
+
+# install zsh
+RUN sh -c "$(curl -L https://github.com/deluan/zsh-in-docker/releases/download/v1.2.1/zsh-in-docker.sh)" -- \
+    -t robbyrussell \
+    -p git \
+    -p https://github.com/marlonrichert/zsh-autocomplete \
+    -p https://github.com/zsh-users/zsh-autosuggestions \    
+    -p https://github.com/lukechilds/zsh-nvm \
+    -x
