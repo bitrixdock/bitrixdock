@@ -32,7 +32,7 @@ RUN chown www-data:www-data /var/www
 # install nodejs
 USER www-data
 ARG NODE_VERSION
-ENV NVM_DIR=/var/www/.nvm
+ENV NVM_DIR /var/www/.nvm
 RUN mkdir -p /var/www/.nvm && touch /var/www/.bashrc
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
     bash -c "source $NVM_DIR/nvm.sh && nvm install ${NODE_VERSION} && nvm alias default $NODE_VERSION && \
