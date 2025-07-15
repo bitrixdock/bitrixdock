@@ -3,6 +3,7 @@ FROM phpdockerio/php:$PHP_WORKSPACE_VERSION-cli
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 
+ARG PHP_WORKSPACE_VERSION
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
     php$PHP_WORKSPACE_VERSION-mbstring \
