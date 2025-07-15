@@ -9,7 +9,7 @@ console-php: ## Run bash (PHP) from "www-data"
 	docker compose exec -u www-data php bash
 
 console-workspace: ## Run bash (PHP) from "www-data"
-	docker compose exec -u www-data workspace bash
+	docker compose exec -u www-data workspace zsh
 
 shell: console-php
 

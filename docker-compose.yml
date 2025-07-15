@@ -19,7 +19,7 @@ services:
             context: ./workspace/
             args:
                 NODE_VERSION: ${NODE_VERSION:-22.16.0}
-                PHP_WORKSPACE_VERSION: ${PHP_WORKSPACE_VERSION}
+                PHP_WORKSPACE_VERSION: ${PHP_WORKSPACE_VERSION:-8.4}
         volumes:
             - ${SITE_PATH}:/var/www/bitrix
             - ~/.ssh:/var/www/.ssh:ro
