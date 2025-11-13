@@ -17,7 +17,7 @@ return [
             'mode' => 'default',
             'handlers' => [
                 'general' => [
-                    'type' => 'memcached',
+                    'type' => 'memcache',
                     'keyPrefix' => '#01',
                     'port' => 11211,
                     'host' => 'memcached',
