@@ -11,6 +11,10 @@ services:
         networks:
             - bitrixdock
         restart: unless-stopped
+        security_opt:
+            - no-new-privileges:true
+        tmpfs:
+            - /tmp
         extra_hosts:
             - "bitrix.local:172.18.0.9"
 
