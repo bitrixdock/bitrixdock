@@ -10,6 +10,7 @@ on:
       - 'nginx/**'
       - 'mysql/**'
       - 'apache/**'
+      - 'workspace/**'
   pull_request:
     branches:
       - master
@@ -19,6 +20,7 @@ on:
       - 'nginx/**'
       - 'mysql/**'
       - 'apache/**'
+      - 'workspace/**'
 
 jobs:
   filter-paths:
@@ -57,50 +59,75 @@ jobs:
               - 'nginx/**'
             apache:
               - 'apache/**'
+            workspace:
+              - 'workspace/**'
       - id: set-matrix
         run: |
-          matrix="{\"include\":["
+          set -euo pipefail
+
+          dirs=()
           if [[ "${{ steps.paths-changed.outputs.php56 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php56\"},"
+            dirs+=("php/php56")
           fi
           if [[ "${{ steps.paths-changed.outputs.php71 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php71\"},"
+            dirs+=("php/php71")
           fi
           if [[ "${{ steps.paths-changed.outputs.php73 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php73\"},"
+            dirs+=("php/php73")
           fi
           if [[ "${{ steps.paths-changed.outputs.php74 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php74\"},"
+            dirs+=("php/php74")
           fi
           if [[ "${{ steps.paths-changed.outputs.php80 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php80\"},"
+            dirs+=("php/php80")
           fi
           if [[ "${{ steps.paths-changed.outputs.php81 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php81\"},"
+            dirs+=("php/php81")
           fi
           if [[ "${{ steps.paths-changed.outputs.php82 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php82\"},"
+            dirs+=("php/php82")
           fi
           if [[ "${{ steps.paths-changed.outputs.php83 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php83\"},"
+            dirs+=("php/php83")
           fi
           if [[ "${{ steps.paths-changed.outputs.php84 }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"php/php84\"},"
+            dirs+=("php/php84")
           fi
           if [[ "${{ steps.paths-changed.outputs.percona }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"percona\"},"
+            dirs+=("percona")
           fi
           if [[ "${{ steps.paths-changed.outputs.mysql }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"mysql\"},"
+            dirs+=("mysql")
           fi
           if [[ "${{ steps.paths-changed.outputs.nginx }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"nginx\"},"
+            dirs+=("nginx")
           fi
           if [[ "${{ steps.paths-changed.outputs.apache }}" == 'true' ]]; then
-            matrix+="{\"directory\":\"apache\"},"
+            dirs+=("apache")
           fi
-          matrix+="]}"
-          echo "::set-output name=matrix::$matrix"
+          if [[ "${{ steps.paths-changed.outputs.workspace }}" == 'true' ]]; then
+            dirs+=("workspace")
+          fi
+
+          if [ ${#dirs[@]} -eq 0 ]; then
+            echo "No directories changed"
+            matrix='{"include":[]}'
+          else
+            matrix='{"include":['
+            first=true
+            for dir in "${dirs[@]}"; do
+              if [ "$first" = true ]; then
+                first=false
+              else
+                matrix+=","
+              fi
+              matrix+="{\"directory\":\"$dir\"}"
+            done
+            matrix+=']}'
+          fi
+
+          echo "Matrix: $matrix"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   build:
     needs: filter-paths
