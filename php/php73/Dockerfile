@@ -1,28 +1,65 @@
-FROM phpdockerio/php73-fpm:latest
+FROM php:7.3-fpm
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 
+# Используется официальный образ php:7.3-fpm вместо phpdockerio/php73-fpm
+# т.к. пакеты для PHP 7.3 больше не доступны в ondrej/php PPA после достижения EOL.
+# Расширения устанавливаются через компиляцию из исходников.
+
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install \
-    php7.3-gd \
-    php7.3-imagick \
-    php7.3-intl \
-    php7.3-interbase \
-    php7.3-mbstring \
-    php7.3-mcrypt \
-    php7.3-memcache \
-    php7.3-memcached \
-    php7.3-mysql \
-    php7.3-opcache \
-    php7.3-soap \
-    php7.3-xdebug \
-    php7.3-zip \
-    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+    && apt-get install -y --no-install-recommends \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    libzip-dev \
+    libmemcached-dev \
+    libxml2-dev \
+    libicu-dev \
+    libmagickwand-dev \
+    zlib1g-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-webp-dir=/usr \
+    && docker-php-ext-install -j$(nproc) \
+    gd \
+    intl \
+    mysqli \
+    pdo_mysql \
+    soap \
+    zip \
+    opcache \
+    && pecl install memcache-4.0.5.2 \
+    && pecl install memcached-3.2.0 \
+    && pecl install imagick \
+    && docker-php-ext-enable memcache memcached imagick \
+    && apt-get install -y --no-install-recommends \
+    libfreetype6 \
+    libjpeg62-turbo \
+    libpng16-16 \
+    libwebp6 \
+    libzip4 \
+    libmemcached11 \
+    libicu67 \
+    libmagickwand-6.q16-6 \
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    libzip-dev \
+    libxml2-dev \
+    libicu-dev \
+    libmagickwand-dev \
+    zlib1g-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-# DO NOT install php7.3-xdebug package for site running in production! It will slow it down significantly.
+COPY ./php.ini /usr/local/etc/php/conf.d/90-php.ini
 
-COPY ./php.ini /etc/php/7.3/fpm/conf.d/90-php.ini
-COPY ./php.ini /etc/php/7.3/cli/conf.d/90-php.ini
+# Создаем симлинки для обратной совместимости с phpdockerio/php73-fpm
+# чтобы поддержать существующие volume mounts
+RUN mkdir -p /etc/php/7.3/fpm /etc/php/7.3/cli \
+    && ln -s /usr/local/etc/php/conf.d /etc/php/7.3/fpm/conf.d \
+    && ln -s /usr/local/etc/php/conf.d /etc/php/7.3/cli/conf.d \
+    && ln -s /usr/local/etc/php-fpm.d /etc/php/7.3/fpm/pool.d
 
 RUN usermod -u 1000 www-data
 
