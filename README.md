@@ -22,14 +22,19 @@ BitrixDock запускает демо Битрикса предоставляя
 ## Порядок разработки в Windows
 Если вы работаете в Windows, то все заводится на штатном WSL2 + Docker Desktop
 
-Как альтернативный вариант - можно поднять виртуальную машину (через Vagrant, VirtualBox, VMware и тп), тестировалось на Ubuntu 18.04.
+Как альтернативный вариант - можно поднять виртуальную машину (через Vagrant, VirtualBox, VMware и тп).
 Ваш рабочий проект должен хранится в двух местах, первое — локальная папка с проектами на хосте (открывается в IDE), второе — виртуальная машина
 (например `/var/www/bitrix`). Проект на хосте мапится в IDE к гостевой OC.
 
 ## Автоматическая установка
-Для разворачивания на Linux машине
+Для разворачивания на Linux или macOS:
 ```shell
 curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh?$(date +%s) -o install.sh && chmod +x install.sh && sh install.sh
+```
+
+Можно указать путь установки (по умолчанию текущая директория):
+```shell
+sh install.sh ~/projects
 ```
 
 ## Ручная установка
@@ -42,13 +47,13 @@ cp -f .env_template .env
 ```
 ⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose.yml
 
-По умолчанию используется nginx, php 7.4, mysql. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
+По умолчанию используется nginx, php 8.2, mysql. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных MySQL.
 
 ```dotenv
 COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
-PHP_VERSION=php74                # Версия php
-PHP_WORKSPACE_VERSION=7.4        # Версия PHP для workspace контейнера
-NODE_VERSION=22.16.0             # Версия Node.js для workspace контейнера
+PHP_VERSION=php82                # Версия php
+PHP_WORKSPACE_VERSION=8.2        # Версия PHP для workspace контейнера
+NODE_VERSION=24.12.0             # Версия Node.js для workspace контейнера
 WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
 DB_SERVER_TYPE=mysql             # Сервер базы данных mysql/percona
 MYSQL_DATABASE=bitrix            # Имя базы данных
@@ -127,7 +132,7 @@ make console-workspace
 - По умолчанию стоит папка `./www` (папка внутри репозиториия)
 - В настройках подключения требуется указывать имя docker compose сервиса, например для подключения к базе нужно указывать "db", а не "localhost". Пример [конфига](configs/.settings.php) с подключением к mysql и memcached.
 - Для загрузки резервной копии в контейнер используйте команду: `cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix`
-- При использовании php74 в production удалите строку с `php7.4-xdebug` из файла `php74/Dockerfile`, сам факт его установки снижает производительность Битрикса и он должен использоваться только для разработки
+- При использовании в production удалите строку с xdebug из соответствующего `phpXX/Dockerfile`, сам факт его установки снижает производительность Битрикса и он должен использоваться только для разработки
 - Если контейнер php-fpm выдает ошибку "failed to create new listening socket: socket(): Address family not supported by protocol", то необходимо включить поддержку IPv6 в системе. Например в Ubuntu 22.04 — закомментировать строку в конфиге GRUB "GRUB_CMDLINE_LINUX="ipv6.disable=1"
 ## Отличие от виртуальной машины Битрикс
 Виртуальная машина от разработчиков Битрикс решает ту же задачу, что и BitrixDock - предоставляет готовое окружение. Разница лишь в том, что Docker намного удобнее, проще и легче в поддержке.
