@@ -51,7 +51,7 @@ cp -f .env_template .env
 
 ```dotenv
 COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
-PHP_VERSION=php82                # Версия php
+PHP_VERSION=php82                # Версия php (php56, php71, php73, php74, php80, php81, php82, php83, php84, php85)
 PHP_WORKSPACE_VERSION=8.2        # Версия PHP для workspace контейнера
 NODE_VERSION=24.12.0             # Версия Node.js для workspace контейнера
 WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
@@ -129,6 +129,7 @@ make console-workspace
 ![db](https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/assets/db.png)
 
 ## Примечание
+- **PHP 8.5**: расширение `php-memcache` недоступно, используйте `php-memcached` вместо него. Расширения `opcache` и `mbstring` встроены в PHP 8.5.
 - По умолчанию стоит папка `./www` (папка внутри репозиториия)
 - В настройках подключения требуется указывать имя docker compose сервиса, например для подключения к базе нужно указывать "db", а не "localhost". Пример [конфига](configs/.settings.php) с подключением к mysql и memcached.
 - Для загрузки резервной копии в контейнер используйте команду: `cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix`
