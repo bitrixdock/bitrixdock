@@ -51,6 +51,8 @@ jobs:
               - 'php/php83/**'
             php84:
               - 'php/php84/**'
+            php85:
+              - 'php/php85/**'
             mysql:
               - 'mysql/**'
             percona:
@@ -92,6 +94,9 @@ jobs:
           fi
           if [[ "${{ steps.paths-changed.outputs.php84 }}" == 'true' ]]; then
             dirs+=("php/php84")
+          fi
+          if [[ "${{ steps.paths-changed.outputs.php85 }}" == 'true' ]]; then
+            dirs+=("php/php85")
           fi
           if [[ "${{ steps.paths-changed.outputs.percona }}" == 'true' ]]; then
             dirs+=("percona")
