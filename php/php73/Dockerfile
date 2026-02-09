@@ -27,9 +27,13 @@ RUN apt-get update \
     soap \
     zip \
     opcache \
-    && pecl install memcache-4.0.5.2 \
-    && pecl install memcached-3.2.0 \
-    && pecl install imagick \
+    && curl -fSL -o /tmp/memcache.tgz https://pecl.php.net/get/memcache-4.0.5.2.tgz \
+    && curl -fSL -o /tmp/memcached.tgz https://pecl.php.net/get/memcached-3.4.0.tgz \
+    && curl -fSL -o /tmp/imagick.tgz https://pecl.php.net/get/imagick-3.8.1.tgz \
+    && pecl install /tmp/memcache.tgz \
+    && pecl install /tmp/memcached.tgz \
+    && pecl install /tmp/imagick.tgz \
+    && rm -f /tmp/memcache.tgz /tmp/memcached.tgz /tmp/imagick.tgz \
     && docker-php-ext-enable memcache memcached imagick \
     && apt-get install -y --no-install-recommends \
     libfreetype6 \
