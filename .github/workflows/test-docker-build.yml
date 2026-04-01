@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - id: paths-changed
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           filters: |
             php56:
@@ -142,7 +142,7 @@ jobs:
       matrix: ${{fromJson(needs.filter-paths.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v6
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
       - name: Build Docker image
         run: |
           docker build ./${{ matrix.directory }} -t bitrixdock/${{ matrix.directory }}:latest
