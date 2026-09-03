@@ -85,7 +85,7 @@ SITE_PATH=./www                  # Путь к директории Вашего
 ## Запуск и остановка bitrixdock
 ### Запуск
 ```shell
-docker compose -p bitrixdock up -d
+docker compose up -d
 ```
 Чтобы проверить, что все сервисы запустились посмотрите список процессов `docker ps`.
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 `netstat -plnt`.
@@ -99,22 +99,22 @@ docker compose -p bitrixdock up -d
 
 Для запуска с профилями:
 ```shell
-docker compose -p bitrixdock --profile admin --profile push up -d
+docker compose --profile admin --profile push up -d
 ```
 
 Для запуска с workspace:
 ```shell
-docker compose -p bitrixdock --profile workspace up -d
+docker compose --profile workspace up -d
 ```
 
 ### Остановка
 ```shell
-docker compose -p bitrixdock stop
+docker compose stop
 ```
 
 ### Полное удаление
 ```shell
-docker compose -p bitrixdock down
+docker compose down
 ```
 ## Workspace контейнер
 Workspace — это готовый к работе контейнер с инструментами для разработки и отладки
@@ -122,7 +122,7 @@ Workspace — это готовый к работе контейнер с инс
 ### Использование workspace
 Запустите контейнер с профилем workspace:
 ```shell
-docker compose -p bitrixdock --profile workspace up -d
+docker compose --profile workspace up -d
 ```
 
 Подключитесь к контейнеру:
