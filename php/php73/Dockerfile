@@ -6,6 +6,14 @@ LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 # т.к. пакеты для PHP 7.3 больше не доступны в ondrej/php PPA после достижения EOL.
 # Расширения устанавливаются через компиляцию из исходников.
 
+# Поддержка bullseye закончилась 31.08.2026: индекс bullseye-security истёк, в пуле
+# зеркала нет части пакетов, поэтому источники берутся из снимка Debian за последний день LTS.
+RUN printf '%s\n' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260901T000000Z bullseye main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260901T000000Z bullseye-security main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260901T000000Z bullseye-updates main' \
+    > /etc/apt/sources.list
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     libfreetype6-dev \
