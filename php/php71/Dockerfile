@@ -13,7 +13,7 @@ RUN echo "www-data" > /etc/cron.deny && chmod 644 /etc/cron.deny
 
 WORKDIR "/var/www/bitrix"
 
-# fpm is healthy when it accepts FastCGI connections; only the PHP CLI is needed
+# php-fpm готов, когда принимает соединения на порту 9000
 HEALTHCHECK --interval=30s --timeout=10s --retries=10 --start-period=10s \
     CMD php -r 'exit(@fsockopen("127.0.0.1", 9000) ? 0 : 1);'
 

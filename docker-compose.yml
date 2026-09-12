@@ -84,9 +84,6 @@ services:
         networks:
             - bitrixdock
         restart: unless-stopped
-        # -h 127.0.0.1 checks the TCP listener php connects to, not the local
-        # socket. mysqladmin ping exits 0 whenever the server answers, so no
-        # credentials are needed.
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
             interval: 10s
