@@ -6,6 +6,17 @@ LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 # т.к. пакеты для PHP 8.0 больше не доступны в ondrej/php PPA после достижения EOL.
 # Расширения устанавливаются через компиляцию из исходников.
 
+# Debian bullseye LTS ended on 2026-08-31. The last bullseye-security index
+# on deb.debian.org expired on 2026-09-07 and its pool no longer holds every
+# package that index lists, so the build uses the Debian snapshot of the
+# final LTS day for all three suites. check-valid-until is off for these
+# sources only, their Release files are older than apt allows by default.
+RUN printf '%s\n' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260901T000000Z bullseye main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260901T000000Z bullseye-security main' \
+    'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260901T000000Z bullseye-updates main' \
+    > /etc/apt/sources.list
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     libfreetype6-dev \
