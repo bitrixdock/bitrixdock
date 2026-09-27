@@ -2,8 +2,11 @@ FROM phpdockerio/php:8.5-fpm
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 
-RUN apt-get update \
+RUN --mount=type=bind,from=ghcr.io/php/pie:bin,source=/pie,target=/usr/local/bin/pie \
+    apt-get update \
     && apt-get -y --no-install-recommends install \
+    build-essential \
+    libtool \
     php8.5-dev \
     php8.5-gd \
     php8.5-imagick \
@@ -14,6 +17,10 @@ RUN apt-get update \
     php8.5-mysql \
     php8.5-soap \
     php8.5-zip \
+    unzip \
+    zlib1g-dev \
+    && pie repository:add vcs https://github.com/websupport-sk/pecl-memcache \
+    && pie install --no-interaction --no-cache websupport-sk/pecl-memcache:dev-main \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 COPY ./php.ini /etc/php/8.5/fpm/conf.d/90-php.ini
