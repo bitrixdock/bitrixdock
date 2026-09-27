@@ -47,13 +47,13 @@ cp -f .env_template .env
 ```
 ⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose.yml
 
-По умолчанию используется Nginx, PHP 8.2, Percona. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных.
+По умолчанию используется Nginx, PHP 8.3, Percona. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных.
 
 ```dotenv
 COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
-PHP_VERSION=php82                # Версия php (php56, php71, php73, php74, php80, php81, php82, php83, php84, php85)
-PHP_WORKSPACE_VERSION=8.2        # Версия PHP для workspace контейнера
-NODE_VERSION=24.12.0             # Версия Node.js для workspace контейнера
+PHP_VERSION=php83                # Версия php (php56, php71, php73, php74, php80, php81, php82, php83, php84, php85)
+PHP_WORKSPACE_VERSION=8.3        # Версия PHP для workspace контейнера
+NODE_VERSION=24.21.0             # Версия Node.js для workspace контейнера
 WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
 DB_SERVER_TYPE=percona           # Сервер базы данных mysql/percona
 MYSQL_VERSION=8.4                # Версия MySQL / Percona (8.0, 8.4)
@@ -136,7 +136,7 @@ make console-workspace
 - `php` - PHP CLI с нужными расширениями
 - `composer` - менеджер пакетов PHP
 - `node`, `npm`, `yarn`, `pnpm` - для работы с JavaScript
-- `bitrix` - CLI инструмент Битрикс
+- `chef` - CLI инструмент Битрикс [@bitrix/chef](https://github.com/bitrix-tools/chef)
 - `git` - для работы с репозиторием
 
 ## Как заполнять подключение к БД
