@@ -127,7 +127,7 @@ docker compose --profile workspace up -d
 
 Подключитесь к контейнеру:
 ```shell
-docker compose exec -u www-data workspace bash
+docker compose exec -u www-data workspace zsh
 # или используйте команду из Makefile
 make console-workspace
 ```
