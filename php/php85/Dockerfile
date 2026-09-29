@@ -19,6 +19,7 @@ RUN apt-get update \
 
 COPY ./php.ini /etc/php/8.5/fpm/conf.d/90-php.ini
 COPY ./php.ini /etc/php/8.5/cli/conf.d/90-php.ini
+COPY ./zz-custom.conf /etc/php/8.5/fpm/pool.d/zz-custom.conf
 
 RUN usermod -u 2000 ubuntu
 RUN usermod -u 1000 www-data

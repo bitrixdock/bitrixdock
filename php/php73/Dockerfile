@@ -65,6 +65,8 @@ RUN apt-get update \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 COPY ./php.ini /usr/local/etc/php/conf.d/90-php.ini
+# Загружаем после zz-docker.conf базового образа.
+COPY ./zz-custom.conf /usr/local/etc/php-fpm.d/zzz-custom.conf
 
 # Создаем симлинки для обратной совместимости с phpdockerio/php73-fpm
 # чтобы поддержать существующие volume mounts
