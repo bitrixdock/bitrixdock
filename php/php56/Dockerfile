@@ -4,6 +4,7 @@ LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 
 COPY ./php.ini /etc/php5/fpm/conf.d/90-php.ini
 COPY ./php.ini /etc/php5/cli/conf.d/90-php.ini
+COPY ./zz-custom.conf /etc/php5/fpm/pool.d/zz-custom.conf
 
 RUN usermod -u 1000 www-data
 

@@ -7,8 +7,8 @@ RUN apt-get update \
     php8.4-dev \
     php8.4-gd \
     php8.4-imagick \
-    php8.4-intl \
     php8.4-interbase \
+    php8.4-intl \
     php8.4-mbstring \
     php8.4-mcrypt \
     php8.4-memcache \
@@ -21,6 +21,7 @@ RUN apt-get update \
 
 COPY ./php.ini /etc/php/8.4/fpm/conf.d/90-php.ini
 COPY ./php.ini /etc/php/8.4/cli/conf.d/90-php.ini
+COPY ./zz-custom.conf /etc/php/8.4/fpm/pool.d/zz-custom.conf
 
 RUN usermod -u 2000 ubuntu
 RUN usermod -u 1000 www-data

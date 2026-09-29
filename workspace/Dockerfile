@@ -1,4 +1,4 @@
-ARG PHP_WORKSPACE_VERSION
+ARG PHP_WORKSPACE_VERSION=8.3
 FROM phpdockerio/php:$PHP_WORKSPACE_VERSION-cli
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
@@ -31,25 +31,25 @@ RUN chown www-data:www-data /var/www
 
 # install nodejs
 USER www-data
-ARG NODE_VERSION
+ARG NODE_VERSION=24.21.0
 ENV NVM_DIR /var/www/.nvm
 RUN mkdir -p /var/www/.nvm && touch /var/www/.bashrc
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash && \
     bash -c "source $NVM_DIR/nvm.sh && nvm install ${NODE_VERSION} && nvm alias default $NODE_VERSION && \
     nvm use default"
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # install nodejs tools
-RUN npm install --global npm yarn pnpm@latest-10 @bitrix/cli
+RUN npm install --global npm yarn pnpm@latest @bitrix/chef
 
 # install zsh
 RUN sh -c "$(curl -L https://github.com/deluan/zsh-in-docker/releases/download/v1.2.1/zsh-in-docker.sh)" -- \
     -t robbyrussell \
     -p git \
     -p https://github.com/marlonrichert/zsh-autocomplete \
-    -p https://github.com/zsh-users/zsh-autosuggestions \    
-    -p https://github.com/lukechilds/zsh-nvm \    
+    -p https://github.com/zsh-users/zsh-autosuggestions \
+    -p https://github.com/lukechilds/zsh-nvm \
     -x
 
 COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini

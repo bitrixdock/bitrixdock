@@ -7,8 +7,8 @@ RUN apt-get update \
     php8.3-dev \
     php8.3-gd \
     php8.3-imagick \
-    php8.3-intl \
     php8.3-interbase \
+    php8.3-intl \
     php8.3-mbstring \
     php8.3-mcrypt \
     php8.3-memcache \
@@ -21,6 +21,7 @@ RUN apt-get update \
 
 COPY ./php.ini /etc/php/8.3/fpm/conf.d/90-php.ini
 COPY ./php.ini /etc/php/8.3/cli/conf.d/90-php.ini
+COPY ./zz-custom.conf /etc/php/8.3/fpm/pool.d/zz-custom.conf
 
 RUN usermod -u 1000 www-data
 

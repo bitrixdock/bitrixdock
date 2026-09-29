@@ -6,6 +6,7 @@ MAINTAINER vitams
 
 COPY ./php.ini /etc/php/7.1/fpm/conf.d/90-php.ini
 COPY ./php.ini /etc/php/7.1/cli/conf.d/90-php.ini
+COPY ./zz-custom.conf /etc/php/7.1/fpm/pool.d/zz-custom.conf
 
 RUN usermod -u 1000 www-data
 

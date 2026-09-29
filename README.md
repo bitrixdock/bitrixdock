@@ -7,11 +7,11 @@ BitrixDock позволяет легко и просто запускать **Bi
 
 
 ## Введение
-BitrixDock запускает демо Битрикса предоставляя готовые сервисы PHP, NGINX, MySQL и многие другие.
+BitrixDock запускает демо Битрикса, предоставляя готовые сервисы PHP, NGINX, MySQL и многие другие.
 
 ### Преимущества данной сборки
 - Сервис PHP запакован в отдельный образ, чтобы избавить разработчиков от долгого компилирования.
-- Остальные сервисы так же "причёсаны" и разворачиваются моментально.
+- Остальные сервисы также "причёсаны" и разворачиваются моментально.
 - Ничего лишнего.
 
 ## Требования
@@ -47,13 +47,13 @@ cp -f .env_template .env
 ```
 ⚠ Если у вас мак, удалите строчку `/etc/localtime:/etc/localtime/:ro` из docker-compose.yml
 
-По умолчанию используется Nginx, PHP 8.2, Percona. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных.
+По умолчанию используется Nginx, PHP 8.3, Percona. Настройки можно изменить в файле `.env`. Также можно задать путь к каталогу с сайтом и параметры базы данных.
 
 ```dotenv
 COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
-PHP_VERSION=php82                # Версия php (php56, php71, php73, php74, php80, php81, php82, php83, php84, php85)
-PHP_WORKSPACE_VERSION=8.2        # Версия PHP для workspace контейнера
-NODE_VERSION=24.12.0             # Версия Node.js для workspace контейнера
+PHP_VERSION=php83                # Версия php (php56, php71, php73, php74, php80, php81, php82, php83, php84, php85)
+PHP_WORKSPACE_VERSION=8.3        # Версия PHP для workspace контейнера
+NODE_VERSION=24.21.0             # Версия Node.js для workspace контейнера
 WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
 DB_SERVER_TYPE=percona           # Сервер базы данных mysql/percona
 MYSQL_VERSION=8.4                # Версия MySQL / Percona (8.0, 8.4)
@@ -87,7 +87,7 @@ SITE_PATH=./www                  # Путь к директории Вашего
 ```shell
 docker compose up -d
 ```
-Чтобы проверить, что все сервисы запустились посмотрите список процессов `docker ps`.
+Чтобы проверить, что все сервисы запустились, посмотрите список процессов `docker ps`.
 Посмотрите все прослушиваемые порты, должны быть 80, 11211, 9000 `netstat -plnt`.
 Откройте IP машины в браузере.
 
@@ -127,7 +127,7 @@ docker compose --profile workspace up -d
 
 Подключитесь к контейнеру:
 ```shell
-docker compose exec -u www-data workspace bash
+docker compose exec -u www-data workspace zsh
 # или используйте команду из Makefile
 make console-workspace
 ```
@@ -136,7 +136,7 @@ make console-workspace
 - `php` - PHP CLI с нужными расширениями
 - `composer` - менеджер пакетов PHP
 - `node`, `npm`, `yarn`, `pnpm` - для работы с JavaScript
-- `bitrix` - CLI инструмент Битрикс
+- `chef` - CLI инструмент Битрикс [@bitrix/chef](https://github.com/bitrix-tools/chef)
 - `git` - для работы с репозиторием
 
 ## Как заполнять подключение к БД
@@ -146,8 +146,8 @@ make console-workspace
 - По умолчанию стоит папка `./www` (папка внутри репозитория)
 - В настройках подключения требуется указывать имя docker compose сервиса, например для подключения к базе нужно указывать "db", а не "localhost". Пример [конфига](configs/.settings.php) с подключением к mysql и memcached.
 - Для загрузки резервной копии в контейнер используйте команду: `cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix`
-- При использовании в production удалите строку с xdebug из соответствующего `phpXX/Dockerfile`, сам факт его установки снижает производительность Битрикса и он должен использоваться только для разработки
-- Если контейнер php-fpm выдает ошибку "failed to create new listening socket: socket(): Address family not supported by protocol", то необходимо включить поддержку IPv6 в системе. Например в Ubuntu 22.04 — закомментировать строку в конфиге GRUB "GRUB_CMDLINE_LINUX="ipv6.disable=1"
+- При использовании в production удалите строку с xdebug из соответствующего `php/phpXX/Dockerfile`, сам факт его установки снижает производительность Битрикса и он должен использоваться только для разработки
+
 ## Отличие от виртуальной машины Битрикс
 Виртуальная машина от разработчиков Битрикс решает ту же задачу, что и BitrixDock - предоставляет готовое окружение. Разница лишь в том, что Docker намного удобнее, проще и легче в поддержке.
 
@@ -178,7 +178,7 @@ https://github.com/bitrixdock/bitrixdock-production
 Ещё один production проект с memcached композитом, php8.2, почтой и кроном в контейнере и развёрнутым Readme (англ.):
 https://github.com/paskal/bitrix.infra
 
-Реальные проекты на основе этих проектов работают годами без проблем если их не трогать )
+Реальные проекты на основе этих проектов работают годами без проблем, если их не трогать :)
 ![Alt text](assets/Clip2net_200727170318.png?raw=true "BitrixDock")
 
 # Для контрибьюторов
@@ -201,7 +201,7 @@ git remote add upstream https://github.com/bitrixdock/bitrixdock
 ```shell
 git add .
 git commit -am "My fixes"
-git push -u origin new_branch
+git push -u origin myfix
 ```
 7. Переходим в свой проект `https://github.com/my_account/bitrixdock` и жмем кнопку Compare & pull request
 8. Описываем какую проблему решает Пул Реквест с кратким описанием, зачем сделано изменение
