@@ -143,7 +143,6 @@ make console-workspace
 ![db](https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/assets/db.png)
 
 ## Примечание
-- **PHP 8.5**: расширение `php-memcache` недоступно, используйте `php-memcached` вместо него. Расширения `opcache` и `mbstring` встроены в PHP 8.5.
 - По умолчанию стоит папка `./www` (папка внутри репозитория)
 - В настройках подключения требуется указывать имя docker compose сервиса, например для подключения к базе нужно указывать "db", а не "localhost". Пример [конфига](configs/.settings.php) с подключением к mysql и memcached.
 - Для загрузки резервной копии в контейнер используйте команду: `cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix`
