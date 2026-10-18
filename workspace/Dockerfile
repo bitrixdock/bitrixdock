@@ -8,6 +8,7 @@ RUN apt-get update \
     && apt-get -y --no-install-recommends install \
     php$PHP_WORKSPACE_VERSION-mbstring \
     php$PHP_WORKSPACE_VERSION-memcache \
+    php$PHP_WORKSPACE_VERSION-memcached \
     php$PHP_WORKSPACE_VERSION-mysql \
     php$PHP_WORKSPACE_VERSION-tokenizer \
     php$PHP_WORKSPACE_VERSION-xml \
@@ -51,6 +52,13 @@ RUN sh -c "$(curl -L https://github.com/deluan/zsh-in-docker/releases/download/v
     -p https://github.com/zsh-users/zsh-autosuggestions \
     -p https://github.com/lukechilds/zsh-nvm \
     -x
+
+# Register autocomplete functions
+RUN sed -i \
+    -e '/^plugins=/s/ zsh-autocomplete//' \
+    -e '/^source .*oh-my-zsh.sh/i source "$ZSH/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"' \
+    /var/www/.zshrc \
+    && printf '%s\n' 'skip_global_compinit=1' >> /var/www/.zshenv
 
 COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 
