@@ -53,7 +53,7 @@ cp -f .env_template .env
 COMPOSE_PROJECT_NAME=bitrixdock  # Имя проекта. Используется для наименования контейнеров
 PHP_VERSION=php83                # Версия php (php56, php71, php73, php74, php80, php81, php82, php83, php84, php85)
 PHP_WORKSPACE_VERSION=8.3        # Версия PHP для workspace контейнера
-NODE_VERSION=24.21.0             # Версия Node.js для workspace контейнера
+NODE_VERSION=26.13.0             # Версия Node.js для workspace контейнера
 WEB_SERVER_TYPE=nginx            # Веб-сервер nginx/apache
 DB_SERVER_TYPE=percona           # Сервер базы данных mysql/percona
 MYSQL_VERSION=8.4                # Версия MySQL / Percona (8.0, 8.4)
