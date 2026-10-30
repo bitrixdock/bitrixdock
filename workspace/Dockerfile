@@ -15,6 +15,7 @@ RUN apt-get update \
     php$PHP_WORKSPACE_VERSION-zip \
     git \
     iputils-ping \
+    libatomic1 \
     mc \
     nano \
     ssh \
@@ -32,7 +33,7 @@ RUN chown www-data:www-data /var/www
 
 # install nodejs
 USER www-data
-ARG NODE_VERSION=24.21.0
+ARG NODE_VERSION=26.13.0
 ENV NVM_DIR /var/www/.nvm
 RUN mkdir -p /var/www/.nvm && touch /var/www/.bashrc
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash && \
